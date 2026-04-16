@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Moonshots — Deep-Tech Venture Studio</title>
   <meta name="description" content="A deep-tech venture studio that transforms university research into funded, scalable companies." />
+  <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -19,8 +20,6 @@
       --white:   #F4EFE9;
       --w60:     rgba(244,239,233,0.60);
       --coral:   #E05C3A;
-      --c-glow:  rgba(224,92,58,0.16);
-      --c-sub:   rgba(224,92,58,0.08);
       --muted:   #6A6A6A;
       --border:  #1E1E1E;
       --blight:  #2A2A2A;
@@ -40,12 +39,11 @@
       overflow-x: hidden;
     }
 
-    /* TYPE */
-    h1 { font-family: var(--display); font-size: clamp(54px,7.5vw,108px); font-weight:500; line-height:1.03; letter-spacing:-0.025em; }
-    h2 { font-family: var(--display); font-size: clamp(36px,5vw,68px);    font-weight:500; line-height:1.06; letter-spacing:-0.02em; }
-    h3 { font-family: var(--display); font-size: clamp(22px,3vw,38px);    font-weight:500; line-height:1.14; }
-    h4 { font-family: var(--sans);    font-size: 15px; font-weight:700; color:var(--white); }
-    p  { color: var(--muted); line-height: 1.75; }
+    h1 { font-family: var(--display); font-size: clamp(40px,5.5vw,80px); font-weight:500; line-height:1.05; letter-spacing:-0.02em; }
+    h2 { font-family: var(--display); font-size: clamp(34px,4.5vw,64px); font-weight:500; line-height:1.07; letter-spacing:-0.02em; }
+    h3 { font-family: var(--display); font-size: clamp(22px,3vw,38px); font-weight:500; line-height:1.14; }
+    h4 { font-family: var(--sans); font-size: 15px; font-weight:700; color:var(--white); }
+    p  { color: var(--muted); line-height:1.75; }
     em { font-style:italic; color:var(--w60); }
 
     .label {
@@ -54,19 +52,18 @@
       color:var(--coral); margin-bottom:18px;
     }
 
-    /* LAYOUT */
     .wrap { max-width:1280px; margin:0 auto; padding:0 64px; }
 
-    /* NAV */
+    /* ── NAV ── */
     .nav {
       position:fixed; top:0; left:0; right:0; z-index:200;
-      height:66px; display:flex; align-items:center; justify-content:space-between;
+      height:70px; display:flex; align-items:center; justify-content:space-between;
       padding:0 64px;
       background:rgba(0,0,0,0.94); backdrop-filter:blur(20px);
       border-bottom:1px solid var(--border);
     }
     .logo { display:inline-flex; align-items:center; text-decoration:none; }
-    .logo img { height:28px; width:auto; }
+    .logo img { height:38px; width:auto; }
     .nav-links { display:flex; align-items:center; gap:32px; list-style:none; }
     .nav-links a {
       color:var(--muted); text-decoration:none; font-size:12px; font-weight:600;
@@ -76,7 +73,7 @@
     .nav-cta { background:var(--coral)!important; color:#fff!important; padding:9px 20px; border-radius:4px; }
     .nav-cta:hover { opacity:.88; }
 
-    /* BUTTONS */
+    /* ── BUTTONS ── */
     .btn {
       display:inline-flex; align-items:center; gap:8px;
       padding:14px 28px; border-radius:4px; font-family:var(--sans);
@@ -85,13 +82,15 @@
     }
     .btn-coral { background:var(--coral); color:#fff; }
     .btn-coral:hover { background:#f06a44; transform:translateY(-2px); box-shadow:0 12px 32px rgba(224,92,58,.28); }
+    .btn-white { background:var(--white); color:#000; border:none; }
+    .btn-white:hover { background:#e8e3dd; transform:translateY(-2px); }
     .btn-ghost { background:transparent; color:var(--white); border:1px solid var(--blight); }
     .btn-ghost:hover { border-color:rgba(244,239,233,.35); transform:translateY(-2px); }
 
-    /* ═══ ① HERO ═══ */
+    /* ── HERO ── */
     #hero {
       min-height:100vh; display:flex; align-items:center;
-      position:relative; overflow:hidden; padding-top:66px;
+      position:relative; overflow:hidden; padding-top:70px;
     }
     .hero-glow {
       position:absolute; inset:0; pointer-events:none;
@@ -109,16 +108,13 @@
       background:rgba(224,92,58,.09); border:1px solid rgba(224,92,58,.22);
       border-radius:100px; padding:7px 16px 7px 10px;
       font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
-      color:var(--coral); margin-bottom:36px;
+      color:var(--coral); margin-bottom:32px;
     }
-    .hero-pulse {
-      width:6px; height:6px; border-radius:50%; background:var(--coral);
-      animation:pulse 2.2s ease-in-out infinite;
-    }
+    .hero-pulse { width:6px; height:6px; border-radius:50%; background:var(--coral); animation:pulse 2.2s ease-in-out infinite; }
     @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.7)} }
-    .hero-h1 { margin-bottom:24px; }
-    .hero-sub { font-size:17px; line-height:1.72; color:var(--muted); max-width:520px; margin-bottom:44px; }
-    .hero-actions { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+    .hero-h1 { margin-bottom:22px; }
+    .hero-sub { font-size:17px; line-height:1.72; color:var(--muted); max-width:520px; margin-bottom:40px; }
+    .hero-actions { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:60px; }
 
     /* Orbital */
     .hero-orbital { position:relative; width:100%; aspect-ratio:1; max-width:440px; }
@@ -129,7 +125,7 @@
     .ob { animation:spin-b 13s linear infinite; }
     .oc { animation:spin-c 19s linear infinite; }
 
-    /* ═══ ② APPROACH ═══ */
+    /* ── APPROACH ── */
     #approach { border-top:1px solid var(--border); padding:100px 0; }
     .approach-header {
       display:grid; grid-template-columns:1fr 1fr;
@@ -143,82 +139,71 @@
     .step {
       padding:36px 28px; border-right:1px solid var(--border);
       position:relative; cursor:default;
-      transition:background .3s, border-color .3s;
+      transition:background .3s;
     }
     .step:last-child { border-right:none; }
     .step::before {
       content:''; position:absolute; top:0; left:0; right:0; height:2px;
-      background:var(--coral); transform:scaleX(0); transform-origin:left;
-      transition:transform .35s;
+      background:var(--coral); transform:scaleX(0); transform-origin:left; transition:transform .35s;
     }
     .step:hover { background:rgba(224,92,58,.06); }
     .step:hover::before { transform:scaleX(1); }
     .step:hover .step-title { color:var(--coral); }
-    .step-num {
-      width:32px; height:32px; background:var(--coral); color:#fff;
+
+    /* Number / emblem toggle */
+    .step-icon {
+      width:36px; height:36px; margin-bottom:20px; position:relative;
+    }
+    .step-num-el {
+      width:36px; height:36px; background:var(--coral); color:#fff;
       border-radius:50%; font-size:13px; font-weight:800;
-      display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+      display:flex; align-items:center; justify-content:center;
+      position:absolute; inset:0;
+      transition:opacity .25s, transform .25s;
     }
-    .step-title {
-      font-family:var(--display); font-size:26px; font-weight:500;
-      color:var(--white); margin-bottom:10px;
-      transition:color .3s;
+    .step-emblem-el {
+      width:36px; height:36px;
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      opacity:0;
+      transition:opacity .25s, transform .25s;
+      transform:scale(0.6);
     }
+    .step-emblem-el img { width:36px; height:36px; object-fit:contain; }
+    .step:hover .step-num-el    { opacity:0; transform:scale(0.6); }
+    .step:hover .step-emblem-el { opacity:1; transform:scale(1); }
+
+    .step-title { font-family:var(--display); font-size:26px; font-weight:500; color:var(--white); margin-bottom:10px; transition:color .3s; }
     .step p { font-size:14px; line-height:1.7; }
 
-    /* ═══ ③ UNIVERSITY ═══ */
+    /* ── UNIVERSITY ── */
     #universities { padding:100px 0; background:var(--bg); border-top:1px solid var(--border); }
-    .uni-grid {
-      display:grid; grid-template-columns:1fr 1fr;
-      gap:80px; align-items:start; margin-top:56px;
-    }
+    .uni-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; margin-top:56px; }
     .uni-lede { font-size:16px; line-height:1.78; margin-bottom:20px; }
 
-    .partner-badge {
-      display:inline-flex; align-items:center; gap:14px;
-      background:rgba(224,92,58,.07); border:1px solid rgba(224,92,58,.22);
-      border-radius:10px; padding:16px 22px; margin-top:32px;
+    .waterloo-row {
+      display:flex; align-items:center; gap:24px; margin-top:36px; flex-wrap:wrap;
     }
-    .p-dot { width:8px; height:8px; border-radius:50%; background:var(--coral); box-shadow:0 0 10px rgba(224,92,58,.6); flex-shrink:0; }
-    .p-text { font-size:12px; font-weight:700; color:var(--coral); letter-spacing:.06em; text-transform:uppercase; }
-    .p-sub  { font-size:12px; color:var(--muted); margin-top:3px; }
-
-    .waterloo-logo {
-      margin-top:32px;
-      display:block;
-    }
-    .waterloo-logo img {
-      height:52px;
-      width:auto;
-      filter:brightness(0) invert(1);
-      opacity:0.9;
-    }
+    .waterloo-logo img { height:48px; width:auto; filter:brightness(0) invert(1); opacity:0.88; }
 
     .uni-blocks { display:flex; flex-direction:column; gap:12px; }
     .u-block {
       background:var(--surface); border:1px solid var(--border); border-radius:12px;
-      padding:24px 26px; display:flex; align-items:flex-start; gap:14px;
-      transition:border-color .2s;
+      padding:24px 26px; display:flex; align-items:flex-start; gap:14px; transition:border-color .2s;
     }
     .u-block:hover { border-color:var(--blight); }
     .u-block-icon { font-size:18px; flex-shrink:0; margin-top:2px; }
     .u-block h4 { font-size:14px; margin-bottom:5px; }
     .u-block p  { font-size:13px; line-height:1.62; }
 
-    /* ═══ ④ EIR ═══ */
+    /* ── EIR ── */
     #eir { padding:100px 0; border-top:1px solid var(--border); background:var(--black); }
-    .eir-header {
-      display:grid; grid-template-columns:1fr 1fr;
-      gap:64px; align-items:end; margin-bottom:52px;
-    }
+    .eir-header { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:end; margin-bottom:52px; }
     .eir-header-right p { font-size:16px; line-height:1.75; margin-bottom:24px; }
 
-    .members-grid {
-      display:grid; grid-template-columns:repeat(4,1fr);
-      gap:2px; margin-bottom:24px;
-    }
+    .members-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-bottom:24px; }
     .mcard {
-      background:var(--surface); padding:28px 24px;
+      background:var(--surface); padding:0;
       transition:background .25s; position:relative; overflow:hidden; cursor:default;
     }
     .mcard::after {
@@ -229,73 +214,188 @@
     .mcard:hover::after { transform:scaleX(1); }
     .mcard:hover .m-name { color:var(--coral); }
 
-    .m-avatar {
-      width:60px; height:60px; border-radius:50%;
-      overflow:hidden; margin-bottom:16px; flex-shrink:0;
-      border:1px solid var(--blight);
+    .m-photo {
+      width:100%; aspect-ratio:1/1.05;
+      overflow:hidden; position:relative; background:var(--srf2);
     }
-    .m-avatar img { width:100%; height:100%; object-fit:cover; filter:grayscale(100%); }
-    .m-avatar-placeholder {
-      width:60px; height:60px; border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      font-family:var(--display); font-size:20px; font-weight:500; color:var(--muted);
-      background:var(--srf2); border:1px solid var(--blight); margin-bottom:16px;
+    .m-photo img {
+      width:100%; height:100%; object-fit:cover; object-position:top center;
+      filter:grayscale(100%) brightness(0.9);
+      transition:filter .3s, transform .5s;
     }
+    .mcard:hover .m-photo img { filter:grayscale(80%) brightness(1); transform:scale(1.03); }
+
+    .m-body { padding:22px 22px 24px; }
     .m-name { font-family:var(--display); font-size:20px; font-weight:500; color:var(--white); margin-bottom:3px; transition:color .3s; }
     .m-exit { display:block; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--coral); margin-bottom:10px; }
     .m-desc { font-size:13px; line-height:1.62; }
 
-    .eir-footer {
-      display:flex; align-items:center; justify-content:space-between;
-      padding:20px 0 0; border-top:1px solid var(--border); margin-top:8px;
-    }
-    .eir-count {
-      font-size:13px; color:var(--muted);
-    }
+    .eir-footer { display:flex; align-items:center; justify-content:space-between; padding:20px 0 0; border-top:1px solid var(--border); margin-top:8px; }
+    .eir-count { font-size:13px; color:var(--muted); }
     .eir-count strong { color:var(--white); font-weight:600; }
 
-    /* ═══ ⑤ FUND ═══ */
+    /* ── FUND (Timeline) ── */
     #fund { padding:100px 0; background:var(--bg); border-top:1px solid var(--border); }
-    .fund-lede { font-size:16px; line-height:1.75; max-width:580px; margin-top:16px; margin-bottom:64px; }
+    .fund-lede { font-size:16px; line-height:1.75; max-width:560px; margin-top:16px; margin-bottom:72px; }
 
-    /* Horizontal timeline */
-    .fund-timeline {
-      display:grid; grid-template-columns:1fr 64px 1fr 64px 1fr;
-      align-items:center;
+    .fund-timeline-wrap {
+      position:relative;
+      padding-bottom:40px;
     }
-    .ft-stage {
-      background:var(--surface); border:1px solid var(--border); border-radius:12px;
-      padding:36px 28px; transition:border-color .25s, transform .25s;
+
+    /* SVG arrow track */
+    .timeline-track {
+      position:absolute;
+      bottom:0; left:0; right:0;
+      height:100%;
+      pointer-events:none;
+      z-index:0;
     }
-    .ft-stage:hover { border-color:var(--blight); transform:translateY(-3px); }
+
+    .fund-steps {
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:0;
+      position:relative;
+      z-index:1;
+    }
+
+    .ft-step {
+      display:flex;
+      flex-direction:column;
+      padding:0 32px 48px 0;
+      position:relative;
+    }
+
+    /* Stagger each step upward */
+    .ft-step:nth-child(1) { margin-top:80px; }
+    .ft-step:nth-child(2) { margin-top:40px; }
+    .ft-step:nth-child(3) { margin-top:0; }
+
+    .ft-connector {
+      position:absolute;
+      bottom:0; right:-1px;
+      width:calc(100% + 32px);
+      height:2px;
+      background:linear-gradient(90deg, var(--border), rgba(224,92,58,0.3));
+      z-index:0;
+    }
+
+    .ft-dot-wrap {
+      display:flex; align-items:center; gap:16px; margin-bottom:20px;
+    }
     .ft-dot {
-      width:38px; height:38px; border-radius:50%; background:var(--coral);
-      color:#fff; font-size:13px; font-weight:800;
-      display:flex; align-items:center; justify-content:center; margin-bottom:20px;
-      box-shadow:0 0 20px rgba(224,92,58,.3);
+      width:40px; height:40px; border-radius:50%;
+      background:var(--coral); color:#fff;
+      font-size:14px; font-weight:800;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0;
+      box-shadow:0 0 20px rgba(224,92,58,.35);
     }
-    .ft-label { font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--coral); display:block; margin-bottom:6px; }
-    .ft-title { font-family:var(--display); font-size:26px; font-weight:500; color:var(--white); margin-bottom:10px; }
-    .ft-desc  { font-size:14px; line-height:1.68; }
-    .ft-pill  { display:inline-block; margin-top:14px; background:var(--srf2); border:1px solid var(--border); border-radius:4px; padding:5px 12px; font-size:12px; font-weight:700; color:var(--white); }
-    .ft-arrow { text-align:center; color:var(--blight); font-size:28px; }
+    .ft-range {
+      font-size:12px; font-weight:700; color:var(--coral);
+      background:rgba(224,92,58,.08); border:1px solid rgba(224,92,58,.2);
+      border-radius:3px; padding:3px 10px; letter-spacing:.04em;
+    }
 
-    /* ═══ ⑥ CORPORATE ═══ */
+    .ft-label { font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:6px; }
+    .ft-title { font-family:var(--display); font-size:28px; font-weight:500; color:var(--white); margin-bottom:10px; line-height:1.1; }
+    .ft-desc  { font-size:14px; line-height:1.68; max-width:300px; }
+
+    /* Exit point with emblem */
+    .ft-exit {
+      display:flex; flex-direction:column; align-items:flex-start; padding:0 0 48px 0;
+      position:relative;
+    }
+
+    .ft-exit-emblem {
+      width:64px; height:64px; margin-bottom:16px;
+    }
+    .ft-exit-emblem img { width:100%; height:100%; object-fit:contain; }
+    .ft-exit-label { font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--coral); display:block; margin-bottom:6px; }
+    .ft-exit-title { font-family:var(--display); font-size:28px; font-weight:500; color:var(--white); margin-bottom:10px; }
+    .ft-exit-desc  { font-size:14px; line-height:1.68; max-width:280px; }
+
+    /* Revised horizontal timeline using flex + SVG arrow */
+    .timeline-outer {
+      position:relative;
+    }
+
+    .timeline-nodes {
+      display:flex;
+      align-items:flex-end;
+      position:relative;
+      padding-bottom:60px;
+    }
+
+    .tn-item {
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      position:relative;
+    }
+
+    /* Rising steps — each item is higher than previous */
+    .tn-item:nth-child(1) .tn-card { margin-top:120px; }
+    .tn-item:nth-child(2) .tn-card { margin-top:60px; }
+    .tn-item:nth-child(3) .tn-card { margin-top:0; }
+
+    .tn-card {
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:28px 26px;
+      transition:border-color .25s, transform .25s;
+      position:relative;
+      z-index:2;
+    }
+    .tn-card:hover { border-color:rgba(224,92,58,.3); transform:translateY(-3px); }
+
+    .tn-dot {
+      width:38px; height:38px; border-radius:50%;
+      background:var(--coral); color:#fff;
+      font-size:13px; font-weight:800;
+      display:flex; align-items:center; justify-content:center;
+      margin-bottom:18px;
+      box-shadow:0 0 18px rgba(224,92,58,.35);
+    }
+    .tn-label { font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--coral); display:block; margin-bottom:6px; }
+    .tn-title { font-family:var(--display); font-size:26px; font-weight:500; color:var(--white); margin-bottom:10px; }
+    .tn-desc  { font-size:14px; line-height:1.65; }
+    .tn-pill  { display:inline-block; margin-top:12px; background:var(--srf2); border:1px solid var(--border); border-radius:4px; padding:4px 11px; font-size:12px; font-weight:700; color:var(--white); }
+
+    /* Connector line + arrow between items */
+    .tn-arrow {
+      width:60px; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      position:relative;
+    }
+
+    /* Diagonal arrow connector */
+    .tn-arrow svg {
+      overflow:visible;
+    }
+
+    /* Exit node */
+    .tn-exit {
+      display:flex; flex-direction:column; align-items:flex-start;
+      padding:0 0 0 24px; flex-shrink:0; width:180px;
+      position:relative; z-index:2;
+    }
+
+    .tn-exit-img {
+      width:72px; height:72px; margin-bottom:14px;
+    }
+    .tn-exit-img img { width:100%; height:100%; object-fit:contain; }
+    .tn-exit-label { font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--coral); display:block; margin-bottom:6px; }
+    .tn-exit-title { font-family:var(--display); font-size:22px; font-weight:500; color:var(--white); margin-bottom:8px; line-height:1.15; }
+    .tn-exit-desc  { font-size:13px; line-height:1.62; }
+
+    /* ── CORPORATE ── */
     #corporate { padding:100px 0; border-top:1px solid var(--border); background:var(--black); }
-    .corp-header {
-      display:grid; grid-template-columns:1fr 1fr;
-      gap:64px; align-items:end; margin-bottom:56px;
-    }
+    .corp-header { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:end; margin-bottom:56px; }
     .corp-header p { font-size:17px; line-height:1.75; }
-
-    .corp-phases {
-      display:grid; grid-template-columns:1fr 44px 1fr 44px 1fr;
-      align-items:center;
-    }
-    .c-phase {
-      background:var(--surface); border:1px solid var(--border); border-radius:12px;
-      padding:32px 26px; transition:border-color .25s, transform .25s;
-    }
+    .corp-phases { display:grid; grid-template-columns:1fr 44px 1fr 44px 1fr; align-items:center; }
+    .c-phase { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:32px 26px; transition:border-color .25s, transform .25s; }
     .c-phase:hover { border-color:rgba(224,92,58,.35); transform:translateY(-3px); }
     .c-num { font-family:var(--display); font-size:40px; font-weight:500; color:rgba(224,92,58,.2); margin-bottom:12px; }
     .c-tag { font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--coral); display:block; margin-bottom:6px; }
@@ -303,76 +403,64 @@
     .c-phase p { font-size:14px; line-height:1.65; }
     .c-arrow { text-align:center; color:var(--blight); font-size:22px; }
 
-    /* ═══ ⑦ PORTFOLIO ═══ */
+    /* ── PORTFOLIO ── */
     #portfolio { padding:100px 0; background:var(--bg); border-top:1px solid var(--border); }
-    .portfolio-header {
-      display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:52px;
-    }
-    .portfolio-grid {
-      display:grid; grid-template-columns:repeat(4,1fr); gap:2px;
-    }
+    .portfolio-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:52px; }
+    .portfolio-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; }
     .p-card {
       background:var(--surface); border:1px solid var(--border);
       aspect-ratio:1; display:flex; align-items:center; justify-content:center;
-      padding:28px; position:relative; overflow:hidden;
-      transition:background .3s, border-color .3s;
+      padding:32px; transition:background .3s, border-color .3s;
     }
     .p-card:hover { background:#161616; border-color:var(--blight); }
     .p-card img { width:100%; height:100%; object-fit:contain; filter:brightness(.85); transition:filter .3s; }
     .p-card:hover img { filter:brightness(1); }
-    .p-card-overlay {
-      position:absolute; inset:0; background:rgba(224,92,58,0); display:flex; align-items:flex-end;
-      padding:16px; transition:background .3s;
-    }
-    .p-card:hover .p-card-overlay { background:rgba(224,92,58,.05); }
 
-    /* ═══ ⑧ ABOUT ═══ */
+    /* ── ABOUT ── */
     #about { padding:100px 0; border-top:1px solid var(--border); background:var(--black); }
-    .about-inner { max-width:760px; }
+    .about-inner { max-width:720px; }
     .about-inner p { font-size:17px; line-height:1.82; margin-bottom:18px; }
     .about-inner p:last-child { margin-bottom:0; }
 
-    /* ═══ ⑨ STATS ═══ */
+    /* ── STATS ── */
     #stats { border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
     .stats-row { display:grid; grid-template-columns:repeat(4,1fr); }
-    .s-cell {
-      padding:56px 40px; text-align:center;
-      border-right:1px solid var(--border); transition:background .25s;
-    }
+    .s-cell { padding:56px 40px; text-align:center; border-right:1px solid var(--border); transition:background .25s; }
     .s-cell:last-child { border-right:none; }
     .s-cell:hover { background:rgba(255,255,255,.012); }
-    .s-n { display:block; font-family:var(--display); font-size:58px; font-weight:500; color:var(--white); line-height:1; margin-bottom:10px; }
+    .s-n { display:block; font-family:var(--display); font-size:56px; font-weight:500; color:var(--white); line-height:1; margin-bottom:10px; }
     .s-l { font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
 
-    /* ═══ ⑩ TEAM ═══ */
+    /* ── TEAM ── */
     #team { padding:100px 0; border-top:1px solid var(--border); background:var(--bg); }
     .team-hd { margin-bottom:52px; }
     .team-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
-    .tcard {
-      background:var(--surface); padding:46px 42px;
-      position:relative; overflow:hidden;
-    }
+    .tcard { background:var(--surface); overflow:hidden; position:relative; display:flex; flex-direction:column; }
     .tcard::before {
       content:''; position:absolute; top:0; left:0;
-      width:2px; height:100%; background:var(--coral); opacity:0; transition:opacity .3s;
+      width:100%; height:2px; background:var(--coral); opacity:0; transition:opacity .3s; z-index:1;
     }
     .tcard:hover::before { opacity:1; }
-    .t-avatar {
-      width:72px; height:72px; border-radius:12px;
-      background:var(--srf2); border:1px solid var(--blight);
-      display:flex; align-items:center; justify-content:center;
-      font-family:var(--display); font-size:26px; font-weight:500; color:var(--muted);
-      margin-bottom:24px;
-    }
-    .t-name { font-family:var(--display); font-size:38px; font-weight:500; color:var(--white); line-height:1.05; margin-bottom:4px; }
-    .t-role { font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--coral); display:block; margin-bottom:24px; }
-    .t-points { list-style:none; display:flex; flex-direction:column; gap:9px; }
-    .t-points li { font-size:14px; color:var(--muted); display:flex; align-items:flex-start; gap:10px; line-height:1.52; }
-    .t-points li::before { content:''; display:inline-block; width:4px; height:4px; border-radius:50%; background:var(--coral); flex-shrink:0; margin-top:7px; }
-    .t-tags { display:flex; gap:8px; margin-top:24px; flex-wrap:wrap; }
-    .t-tag { background:var(--srf2); border:1px solid var(--border); border-radius:4px; padding:4px 11px; font-size:11px; font-weight:600; color:var(--muted); }
 
-    /* ═══ ⑪ SUBSCRIBE ═══ */
+    /* Photo full bleed */
+    .t-photo {
+      width:100%; aspect-ratio:16/9; overflow:hidden; position:relative;
+    }
+    .t-photo img {
+      width:100%; height:100%; object-fit:cover; object-position:top center;
+      filter:grayscale(100%) brightness(0.85);
+      transition:filter .4s;
+    }
+    .tcard:hover .t-photo img { filter:grayscale(60%) brightness(0.95); }
+
+    .t-body { padding:38px 42px; }
+    .t-name { font-family:var(--display); font-size:36px; font-weight:500; color:var(--white); line-height:1.05; margin-bottom:4px; }
+    .t-role { font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--coral); display:block; margin-bottom:22px; }
+    .t-bio  { font-size:15px; line-height:1.75; }
+    .t-tags { display:flex; gap:8px; margin-top:22px; flex-wrap:wrap; }
+    .t-tag  { background:var(--srf2); border:1px solid var(--border); border-radius:4px; padding:4px 11px; font-size:11px; font-weight:600; color:var(--muted); }
+
+    /* ── SUBSCRIBE ── */
     #subscribe { padding:90px 0; border-top:1px solid var(--border); background:var(--black); }
     .sub-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
     .sub-lede { font-size:15px; line-height:1.75; max-width:360px; margin-top:14px; }
@@ -400,13 +488,10 @@
     }
     .sub-ok.show { display:flex; }
 
-    /* FOOTER */
+    /* ── FOOTER ── */
     footer { background:var(--black); border-top:1px solid var(--border); padding:56px 0 36px; }
-    .footer-grid {
-      display:grid; grid-template-columns:2fr 1fr 1fr 1fr;
-      gap:56px; padding-bottom:44px; border-bottom:1px solid var(--border);
-    }
-    .fb img { height:28px; width:auto; margin-bottom:14px; display:block; }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:56px; padding-bottom:44px; border-bottom:1px solid var(--border); }
+    .fb-logo { height:38px; width:auto; margin-bottom:14px; display:block; }
     .fb p { font-size:14px; line-height:1.72; max-width:260px; }
     .fc h5 { font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-bottom:18px; }
     .fc ul { list-style:none; display:flex; flex-direction:column; gap:12px; }
@@ -428,13 +513,9 @@
       .nav{padding:0 40px} .wrap{padding:0 40px}
       .hero-inner{grid-template-columns:1fr} .hero-orbital{display:none}
       .approach-header,.corp-header,.uni-grid,.sub-inner,.eir-header{grid-template-columns:1fr;gap:40px}
-      .approach-steps,.corp-phases,.fund-timeline{grid-template-columns:1fr 1fr}
+      .approach-steps{grid-template-columns:1fr 1fr}
       .step:nth-child(2){border-right:none}
       .step:nth-child(3){border-top:1px solid var(--border)}
-      .ft-arrow,.c-arrow{display:none}
-      .c-phase,.ft-stage{border-radius:0;border-top:none}
-      .c-phase:first-child,.ft-stage:first-child{border-radius:12px 12px 0 0;border-top:1px solid var(--border)}
-      .c-phase:last-child,.ft-stage:last-child{border-radius:0 0 12px 12px}
       .members-grid{grid-template-columns:1fr 1fr}
       .portfolio-grid{grid-template-columns:1fr 1fr}
       .stats-row{grid-template-columns:1fr 1fr}
@@ -442,7 +523,20 @@
       .s-cell:nth-child(3){border-top:1px solid var(--border)}
       .team-grid{grid-template-columns:1fr}
       .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
-      .fund-timeline{grid-template-columns:1fr}
+      .corp-phases{grid-template-columns:1fr}
+      .c-arrow{display:none}
+      .c-phase{border-radius:0;border-top:none}
+      .c-phase:first-child{border-radius:12px 12px 0 0;border-top:1px solid var(--border)}
+      .c-phase:last-child{border-radius:0 0 12px 12px}
+      /* Timeline stacking */
+      .timeline-nodes{flex-direction:column; align-items:stretch; padding-bottom:0;}
+      .tn-item:nth-child(1) .tn-card,
+      .tn-item:nth-child(2) .tn-card,
+      .tn-item:nth-child(3) .tn-card{margin-top:0;}
+      .tn-arrow{display:none;}
+      .tn-card{border-radius:0; border-top:none;}
+      .tn-item:first-child .tn-card{border-radius:12px 12px 0 0; border-top:1px solid var(--border);}
+      .tn-exit{width:100%; padding:24px 26px; background:var(--surface); border:1px solid var(--border); border-top:none; border-radius:0 0 12px 12px;}
     }
     @media(max-width:640px){
       .nav{padding:0 20px} .nav-links{display:none} .wrap{padding:0 20px}
@@ -450,12 +544,11 @@
       .approach-steps{grid-template-columns:1fr;border-radius:0}
       .step{border-right:none;border-bottom:1px solid var(--border)}
       .step:last-child{border-bottom:none}
-      .members-grid{grid-template-columns:1fr}
-      .portfolio-grid{grid-template-columns:1fr 1fr}
+      .members-grid,.portfolio-grid{grid-template-columns:1fr 1fr}
       .stats-row{grid-template-columns:1fr}
       .s-cell{border-right:none;border-bottom:1px solid var(--border)}
       .sub-row{flex-direction:column}
-      .tcard{padding:32px 24px}
+      .t-body{padding:28px 24px}
       .footer-grid{grid-template-columns:1fr;gap:28px}
       .footer-btm{flex-direction:column;gap:8px;text-align:center}
       footer{padding:44px 0 28px}
@@ -487,8 +580,8 @@
       <h1 class="hero-h1 a2">Where Breakthroughs<br>Become <em>Companies.</em></h1>
       <p class="hero-sub a3">We find the world's most important technologies in university labs and build fundable companies around them — pairing breakthrough IP with proven operators and the capital to scale.</p>
       <div class="hero-actions a4">
-        <a href="#approach" class="btn btn-coral">Our Approach</a>
-        <a href="#eir" class="btn btn-ghost">Join EIR Club</a>
+        <a href="#subscribe" class="btn btn-coral">Partner with Us</a>
+        <a href="#eir" class="btn btn-white">Join EIR Club</a>
       </div>
     </div>
 
@@ -538,22 +631,34 @@
     </div>
     <div class="approach-steps">
       <div class="step">
-        <div class="step-num">1</div>
+        <div class="step-icon">
+          <div class="step-num-el">1</div>
+          <div class="step-emblem-el"><img src="Moonshots_Emblem.png" alt="" /></div>
+        </div>
         <div class="step-title">Source IP</div>
         <p>We work with university research labs to find patent-protected technologies with real commercial potential, before anyone else gets there.</p>
       </div>
       <div class="step">
-        <div class="step-num">2</div>
+        <div class="step-icon">
+          <div class="step-num-el">2</div>
+          <div class="step-emblem-el"><img src="Moonshots_Emblem.png" alt="" /></div>
+        </div>
         <div class="step-title">Match CEO</div>
         <p>We recruit second-time founders from our EIR Club and pair them to IP that fits their domain expertise. Operators who've done it before, not first-timers.</p>
       </div>
       <div class="step">
-        <div class="step-num">3</div>
+        <div class="step-icon">
+          <div class="step-num-el">3</div>
+          <div class="step-emblem-el"><img src="Moonshots_Emblem.png" alt="" /></div>
+        </div>
         <div class="step-title">Fund</div>
         <p>We organize pre-seed capital fast through our EIR co-investor network, strategic angels, and family offices. Weeks, not months.</p>
       </div>
       <div class="step">
-        <div class="step-num">4</div>
+        <div class="step-icon">
+          <div class="step-num-el">4</div>
+          <div class="step-emblem-el"><img src="Moonshots_Emblem.png" alt="" /></div>
+        </div>
         <div class="step-title">Scale</div>
         <p>We bring corporate partners in from day one as pilot customers and co-investors, so the exit relationship is built in from the start.</p>
       </div>
@@ -572,16 +677,11 @@
         <p class="uni-lede">Universities generate some of the world's most consequential scientific breakthroughs. Most never reach the people who could benefit from them — not because the science isn't ready, but because the bridge to market doesn't exist.</p>
         <p class="uni-lede" style="margin-bottom:0;">Moonshots is that bridge. We work directly with tech transfer offices, identify IP with real commercial potential, and take responsibility for building the company around it.</p>
 
-        <div class="partner-badge">
-          <div class="p-dot"></div>
-          <div>
-            <div class="p-text">Launch Partner</div>
-            <div class="p-sub">University of Waterloo</div>
+        <div class="waterloo-row">
+          <div class="waterloo-logo">
+            <img src="Waterloo.avif" alt="University of Waterloo" />
           </div>
-        </div>
-
-        <div class="waterloo-logo">
-          <img src="Waterloo.png" alt="University of Waterloo" />
+          <a href="#subscribe" class="btn btn-coral" style="font-size:11px; padding:11px 22px;">Partner with Us</a>
         </div>
       </div>
 
@@ -615,7 +715,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -637,72 +736,137 @@
     <div class="members-grid">
 
       <div class="mcard">
-        <div class="m-avatar-placeholder">FR</div>
-        <div class="m-name">Fabian Raso</div>
-        <span class="m-exit">Hangry &rarr; Transact</span>
-        <p class="m-desc">Raised $1M seed. Scaled university pre-order platform. 8-figure acquisition.</p>
+        <div class="m-photo">
+          <img src="Fabian_Raso.jpeg" alt="Fabian Raso" />
+        </div>
+        <div class="m-body">
+          <div class="m-name">Fabian Raso</div>
+          <span class="m-exit">Hangry &rarr; Transact</span>
+          <p class="m-desc">Raised $1M seed. Scaled university pre-order platform. 8-figure acquisition.</p>
+        </div>
       </div>
 
       <div class="mcard">
-        <div class="m-avatar-placeholder">SD</div>
-        <div class="m-name">Steve Desjarlais</div>
-        <span class="m-exit">Heyday &rarr; Hootsuite</span>
-        <p class="m-desc">Raised $2M seed. $2M ARR. Scaled to 80 people. Acquired for $60M.</p>
+        <div class="m-photo">
+          <img src="Steve_Desjarlais.jpeg" alt="Steve Desjarlais" />
+        </div>
+        <div class="m-body">
+          <div class="m-name">Steve Desjarlais</div>
+          <span class="m-exit">Heyday &rarr; Hootsuite</span>
+          <p class="m-desc">Raised $2M seed. $2M ARR. Scaled to 80 people. Acquired for $60M.</p>
+        </div>
       </div>
 
       <div class="mcard">
-        <div class="m-avatar-placeholder">HB</div>
-        <div class="m-name">Hugo Brizard</div>
-        <span class="m-exit">K-Ops &rarr; Stack Construction</span>
-        <p class="m-desc">Raised $500K pre-seed. Built corporate-partnered product. 8-figure acquisition.</p>
+        <div class="m-photo">
+          <img src="Hugo_Brizard.jpeg" alt="Hugo Brizard" />
+        </div>
+        <div class="m-body">
+          <div class="m-name">Hugo Brizard</div>
+          <span class="m-exit">K-Ops &rarr; Stack Construction</span>
+          <p class="m-desc">Raised $500K pre-seed. Built corporate-partnered product. 8-figure acquisition.</p>
+        </div>
       </div>
 
       <div class="mcard">
-        <div class="m-avatar-placeholder">SZ</div>
-        <div class="m-name">Sahil Zaman</div>
-        <span class="m-exit">ClosingFolders &rarr; iManage</span>
-        <p class="m-desc">Bootstrapped legal tech product. Sold to leading data room provider. 8-figure exit.</p>
+        <div class="m-photo">
+          <img src="Sahil_Zaman.jpeg" alt="Sahil Zaman" />
+        </div>
+        <div class="m-body">
+          <div class="m-name">Sahil Zaman</div>
+          <span class="m-exit">ClosingFolders &rarr; iManage</span>
+          <p class="m-desc">Bootstrapped legal tech product. Sold to leading data room provider. 8-figure exit.</p>
+        </div>
       </div>
 
     </div>
 
     <div class="eir-footer">
       <p class="eir-count">Showing 4 of <strong>200+</strong> members in the EIR Club network.</p>
-      <a href="#subscribe" class="btn btn-ghost" style="font-size:11px;padding:10px 22px;">See All Members</a>
+      <a href="#subscribe" class="btn btn-ghost" style="font-size:11px;padding:10px 22px;">More Members</a>
     </div>
   </div>
 </section>
 
-<!-- ⑤ FUND -->
+<!-- ⑤ FUND (Rising Timeline) -->
 <section id="fund">
   <div class="wrap">
     <span class="label">Fund &amp; Capital</span>
     <h2>Capital Designed for<br><em>Deep-Tech Timelines</em></h2>
-    <p class="fund-lede">Deep tech takes longer to commercialize than SaaS — but the defensibility is exponentially higher. We structure capital to match those realities: moving fast early and building the right long-term relationships for the journey to exit.</p>
+    <p class="fund-lede">Deep tech takes longer to commercialize than SaaS — but the defensibility is exponentially higher. We structure capital to match those realities, moving fast early and building the right relationships for the journey to exit.</p>
 
-    <div class="fund-timeline">
-      <div class="ft-stage">
-        <div class="ft-dot">1</div>
-        <span class="ft-label">Pre-Seed</span>
-        <div class="ft-title">Party Round</div>
-        <p class="ft-desc">Organized fast through our EIR co-investors, university alumni, and strategic angels. We close rounds in weeks, not quarters.</p>
-        <span class="ft-pill">$250K &ndash; $750K</span>
-      </div>
-      <div class="ft-arrow">&rarr;</div>
-      <div class="ft-stage">
-        <div class="ft-dot">2</div>
-        <span class="ft-label">Seed</span>
-        <div class="ft-title">Strategic Raise</div>
-        <p class="ft-desc">Angels, family offices, and corporate CVCs with direct relevance to each company's market and a natural path to exit.</p>
-        <span class="ft-pill">$1M &ndash; $3M</span>
-      </div>
-      <div class="ft-arrow">&rarr;</div>
-      <div class="ft-stage">
-        <div class="ft-dot">3</div>
-        <span class="ft-label">Growth &amp; Exit</span>
-        <div class="ft-title">Corporate or CSE</div>
-        <p class="ft-desc">A pre-built corporate relationship becomes the natural exit through acquisition, licensing, or CSE listing. 3 to 6 year horizon, defined from day one.</p>
-        <span class="ft-pill">Exit: 3&ndash;6 Years</span>
+    <div class="timeline-outer">
+      <div class="timeline-nodes">
+
+        <!-- Node 1 -->
+        <div class="tn-item">
+          <div class="tn-card">
+            <div class="tn-dot">1</div>
+            <span class="tn-label">Pre-Seed</span>
+            <div class="tn-title">Party Round</div>
+            <p class="tn-desc">Organized fast through our EIR co-investors, university alumni, and strategic angels. We close rounds in weeks, not quarters.</p>
+            <span class="tn-pill">$250K &ndash; $750K</span>
+          </div>
+        </div>
+
+        <!-- Arrow 1 -->
+        <div class="tn-arrow">
+          <svg width="60" height="80" viewBox="0 0 60 80">
+            <defs>
+              <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" fill="rgba(224,92,58,0.5)"/>
+              </marker>
+            </defs>
+            <path d="M 10 70 Q 30 50 50 10" stroke="rgba(224,92,58,0.4)" stroke-width="1.5" fill="none" stroke-dasharray="4,4" marker-end="url(#arrowhead)"/>
+          </svg>
+        </div>
+
+        <!-- Node 2 -->
+        <div class="tn-item">
+          <div class="tn-card">
+            <div class="tn-dot">2</div>
+            <span class="tn-label">Seed</span>
+            <div class="tn-title">Strategic Raise</div>
+            <p class="tn-desc">Angels, family offices, and corporate CVCs with direct relevance to each company's market and a natural path to exit.</p>
+            <span class="tn-pill">$1M &ndash; $3M</span>
+          </div>
+        </div>
+
+        <!-- Arrow 2 -->
+        <div class="tn-arrow">
+          <svg width="60" height="80" viewBox="0 0 60 80">
+            <path d="M 10 70 Q 30 50 50 10" stroke="rgba(224,92,58,0.4)" stroke-width="1.5" fill="none" stroke-dasharray="4,4" marker-end="url(#arrowhead)"/>
+          </svg>
+        </div>
+
+        <!-- Node 3 -->
+        <div class="tn-item">
+          <div class="tn-card">
+            <div class="tn-dot">3</div>
+            <span class="tn-label">Growth</span>
+            <div class="tn-title">Corporate or CSE</div>
+            <p class="tn-desc">A pre-built corporate relationship becomes the natural exit through acquisition, licensing, or CSE listing.</p>
+            <span class="tn-pill">3 &ndash; 6 Years</span>
+          </div>
+        </div>
+
+        <!-- Arrow to exit -->
+        <div class="tn-arrow" style="width:48px;">
+          <svg width="48" height="80" viewBox="0 0 48 80">
+            <path d="M 8 70 Q 24 40 40 5" stroke="rgba(224,92,58,0.6)" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
+          </svg>
+        </div>
+
+        <!-- Exit node with emblem -->
+        <div class="tn-exit">
+          <div class="tn-exit-img">
+            <img src="Moonshots_Emblem.png" alt="Moonshots" />
+          </div>
+          <span class="tn-exit-label">Growth &amp; Exit</span>
+          <div class="tn-exit-title">Corporate Acquisition or CSE</div>
+          <p class="tn-exit-desc">3 to 6 year horizon, defined from formation.</p>
+        </div>
+
       </div>
     </div>
   </div>
@@ -755,18 +919,10 @@
       <p style="max-width:360px; font-size:15px;">A growing portfolio of deep-tech companies spun out of university research, led by proven operators.</p>
     </div>
     <div class="portfolio-grid">
-      <div class="p-card">
-        <img src="Portfolio_Crynostics.png" alt="Crynostics" />
-      </div>
-      <div class="p-card">
-        <img src="Portfolio_innovitesse.png" alt="Innovitesse" style="filter:brightness(1);" />
-      </div>
-      <div class="p-card">
-        <img src="Portfolio_subscribepod.png" alt="SubscribePod" />
-      </div>
-      <div class="p-card">
-        <img src="Portfolio_torofort.png" alt="Torofort" />
-      </div>
+      <div class="p-card"><img src="Portfolio_Crynostics.png" alt="Crynostics" /></div>
+      <div class="p-card"><img src="Portfolio_innovitesse.png" alt="Innovitesse" style="filter:brightness(1);" /></div>
+      <div class="p-card"><img src="Portfolio_subscribepod.png" alt="SubscribePod" /></div>
+      <div class="p-card"><img src="Portfolio_torofort.png" alt="Torofort" /></div>
     </div>
   </div>
 </section>
@@ -777,9 +933,8 @@
     <span class="label">About Moonshots</span>
     <h2 style="margin-bottom:36px;">Built on a<br><em>Simple Premise.</em></h2>
     <div class="about-inner">
-      <p>The most consequential technologies of the next decade are already invented. They're sitting in university labs, protected by patents, validated by years of rigorous research. What they lack isn't science. It's operators, capital, and the commercial infrastructure to reach the world.</p>
-      <p>Moonshots was built to be exactly that infrastructure. We're a deep-tech venture studio: part company builder, part investor, part talent network. We take research from lab to market by providing everything a great technology needs.</p>
-      <p>We're headquartered in Canada, partnered with the University of Waterloo, and building a portfolio of companies positioned to be acquired by the world's largest industrial and technology corporations.</p>
+      <p>The most consequential technologies of the next decade are already invented. They're sitting in university labs, protected by patents, validated by years of rigorous research. What they lack isn't science — it's operators, capital, and the commercial infrastructure to reach the world.</p>
+      <p>Moonshots was built to be exactly that infrastructure. We're a deep-tech venture studio: part company builder, part investor, part talent network. We're headquartered in Canada, partnered with the University of Waterloo, and building a portfolio of companies positioned to be acquired by the world's largest industrial and technology corporations.</p>
     </div>
   </div>
 </section>
@@ -802,43 +957,39 @@
       <h2>Operators, Investors,<br><em>Ecosystem Builders</em></h2>
     </div>
     <div class="team-grid">
+
       <div class="tcard">
-        <div class="t-avatar">MJ</div>
-        <div class="t-name">Marco Janeczek</div>
-        <span class="t-role">Co-Founder</span>
-        <ul class="t-points">
-          <li>Investment Professional, L-SPARK (Wesley Clover)</li>
-          <li>Founder, Infinite Ventures — 12+ portfolio companies</li>
-          <li>Investment Professional, H-FARM (Italy)</li>
-          <li>Head of Corporate Development, Tough Commerce (YC)</li>
-          <li>3 prior university tech transfers: Neurovine, Crynostics, Enurgen</li>
-          <li>$60M raised and $300M in exits as operator</li>
-        </ul>
-        <div class="t-tags">
-          <span class="t-tag">L-SPARK</span>
-          <span class="t-tag">Infinite Ventures</span>
-          <span class="t-tag">H-FARM</span>
-          <span class="t-tag">YC</span>
+        <div class="t-photo">
+          <img src="Marco_Janeczek.jpeg" alt="Marco Janeczek" />
+        </div>
+        <div class="t-body">
+          <div class="t-name">Marco Janeczek</div>
+          <span class="t-role">Co-Founder</span>
+          <p class="t-bio">Investment professional at L-SPARK and H-FARM, founder of Infinite Ventures with 12+ portfolio companies, and Head of Corporate Development at Tough Commerce (YC). He has led 3 prior university tech transfers and has raised $60M and generated $300M in exits as an operator.</p>
+          <div class="t-tags">
+            <span class="t-tag">L-SPARK</span>
+            <span class="t-tag">Infinite Ventures</span>
+            <span class="t-tag">H-FARM</span>
+          </div>
         </div>
       </div>
+
       <div class="tcard">
-        <div class="t-avatar">JL</div>
-        <div class="t-name">Jordan Latourelle</div>
-        <span class="t-role">Co-Founder</span>
-        <ul class="t-points">
-          <li>Founder and CEO, Tough Commerce (Y Combinator W21)</li>
-          <li>$10M+ raised and $10M+ revenue at Tough Commerce</li>
-          <li>Founder, StrongForce Homes</li>
-          <li>Angel investor in multiple YC portfolio companies</li>
-          <li>Direct access to the Y Combinator founder network</li>
-          <li>Deep relationships across US and Canadian venture ecosystems</li>
-        </ul>
-        <div class="t-tags">
-          <span class="t-tag">Y Combinator</span>
-          <span class="t-tag">Tough Commerce</span>
-          <span class="t-tag">StrongForce</span>
+        <div class="t-photo">
+          <img src="Jordan_latourelle.jpeg" alt="Jordan Latourelle" style="object-position:center center;" />
+        </div>
+        <div class="t-body">
+          <div class="t-name">Jordan Latourelle</div>
+          <span class="t-role">Co-Founder</span>
+          <p class="t-bio">Founder and CEO of Tough Commerce (Y Combinator W21), where he raised $10M and grew to $10M in revenue. Previously founded StrongForce Homes and angel invested in multiple YC companies. He brings direct access to the Y Combinator founder network and deep relationships across US and Canadian venture ecosystems.</p>
+          <div class="t-tags">
+            <span class="t-tag">Y Combinator</span>
+            <span class="t-tag">Tough Commerce</span>
+            <span class="t-tag">StrongForce</span>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -872,7 +1023,7 @@
   <div class="wrap">
     <div class="footer-grid">
       <div class="fb">
-        <img src="Moonshots.png" alt="Moonshots" />
+        <img class="fb-logo" src="Moonshots.png" alt="Moonshots" />
         <p>A deep-tech venture studio turning university research into funded, scalable companies. Launch partner: University of Waterloo.</p>
       </div>
       <div class="fc">
@@ -903,7 +1054,6 @@
     </div>
     <div class="footer-btm">
       <p>&copy; 2026 Moonshots Venture Studio. All rights reserved.</p>
-      <p>Confidential &middot; Not for distribution</p>
     </div>
   </div>
 </footer>
