@@ -199,8 +199,10 @@
     .waterloo-row {
       display:flex; align-items:center; gap:0; margin-top:36px; flex-wrap:wrap;
     }
-    .waterloo-logo img { height:68px; width:auto; filter:brightness(0) invert(1); opacity:0.88; }
-    .waterloo-partner-btn { margin-left:36px; }
+    .waterloo-logo { display:flex; flex-direction:column; gap:8px; }
+    .waterloo-logo img { height:80px; width:auto; }
+    .waterloo-caption { font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); }
+    .waterloo-partner-btn { margin-left:64px; }
 
     .uni-blocks { display:flex; flex-direction:column; gap:12px; }
     .u-block {
@@ -360,7 +362,7 @@
     /* ── TEAM ── */
     #team { padding:100px 0; border-top:1px solid var(--border); background:var(--bg); }
     .team-hd { margin-bottom:52px; }
-    .team-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+    .team-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
     .tcard { background:var(--surface); overflow:hidden; position:relative; display:flex; flex-direction:column; }
     .tcard::before {
       content:''; position:absolute; top:0; left:0;
@@ -368,10 +370,9 @@
     }
     .tcard:hover::before { opacity:1; }
 
-    /* Photo — smaller square */
+    /* Photo — square */
     .t-photo {
-      width:100%; aspect-ratio:3/2; overflow:hidden; position:relative;
-      max-height:260px;
+      width:100%; aspect-ratio:1/1; overflow:hidden; position:relative;
     }
     .t-photo img {
       width:100%; height:100%; object-fit:cover; object-position:top center;
@@ -450,42 +451,162 @@
     .a4{animation:fadeUp .9s cubic-bezier(.16,1,.3,1) .44s both}
     .a5{animation:fadeUp .9s cubic-bezier(.16,1,.3,1) .58s both}
 
-    /* RESPONSIVE */
-    @media(max-width:1100px){
-      .nav{padding:0 40px} .wrap{padding:0 40px}
-      .hero-inner{grid-template-columns:1fr} .hero-orbital{display:none}
-      .approach-header,.corp-header,.uni-grid,.sub-inner,.eir-header{grid-template-columns:1fr;gap:40px}
-      .approach-steps{grid-template-columns:1fr 1fr}
-      .step:nth-child(2){border-right:none}
-      .step:nth-child(3){border-top:1px solid var(--border)}
-      .members-grid{grid-template-columns:1fr 1fr}
-      .portfolio-grid{grid-template-columns:1fr 1fr}
-      .stats-row{grid-template-columns:1fr 1fr}
-      .s-cell:nth-child(2){border-right:none}
-      .s-cell:nth-child(3){border-top:1px solid var(--border)}
-      .team-grid{grid-template-columns:1fr}
-      .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
-      .corp-phases{grid-template-columns:1fr}
-      .c-arrow{display:none}
-      .c-phase{border-radius:0;border-top:none}
-      .c-phase:first-child{border-radius:12px 12px 0 0;border-top:1px solid var(--border)}
-      .c-phase:last-child{border-radius:0 0 12px 12px}
-      .fund-steps{grid-template-columns:1fr}
+    /* ── MOBILE NAV ── */
+    .nav-mobile-btn {
+      display:none; flex-direction:column; gap:5px; background:none;
+      border:none; cursor:pointer; padding:8px; z-index:300;
     }
+    .nav-mobile-btn span {
+      display:block; width:22px; height:1.5px; background:var(--white);
+      transition:all .25s;
+    }
+    .nav-mobile-btn.open span:nth-child(1){ transform:translateY(6.5px) rotate(45deg); }
+    .nav-mobile-btn.open span:nth-child(2){ opacity:0; }
+    .nav-mobile-btn.open span:nth-child(3){ transform:translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-drawer {
+      display:none; position:fixed; top:60px; left:0; right:0; z-index:199;
+      background:rgba(0,0,0,0.98); backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--border);
+      flex-direction:column; padding:16px 20px 24px;
+      gap:0;
+    }
+    .mobile-drawer.open { display:flex; }
+    .mobile-drawer a {
+      color:var(--muted); text-decoration:none; font-size:13px; font-weight:600;
+      letter-spacing:.1em; text-transform:uppercase; padding:14px 0;
+      border-bottom:1px solid var(--border); transition:color .2s;
+    }
+    .mobile-drawer a:last-child { border-bottom:none; }
+    .mobile-drawer a:hover { color:var(--white); }
+    .mobile-drawer-cta {
+      margin-top:12px; background:var(--coral)!important; color:#fff!important;
+      text-align:center; border-radius:4px; padding:14px!important;
+      border:none!important;
+    }
+
     @media(max-width:640px){
-      .nav{padding:0 20px} .nav-links{display:none} .wrap{padding:0 20px}
-      section{padding:64px 0!important}
-      .approach-steps{grid-template-columns:1fr;border-radius:0}
-      .step{border-right:none;border-bottom:1px solid var(--border)}
-      .step:last-child{border-bottom:none}
-      .members-grid,.portfolio-grid{grid-template-columns:1fr 1fr}
-      .stats-row{grid-template-columns:1fr}
-      .s-cell{border-right:none;border-bottom:1px solid var(--border)}
-      .sub-row{flex-direction:column}
-      .t-body{padding:28px 24px}
-      .footer-grid{grid-template-columns:1fr;gap:28px}
-      .footer-btm{flex-direction:column;gap:8px;text-align:center}
-      footer{padding:44px 0 28px}
+      .nav-mobile-btn { display:flex; }
+    }
+
+    /* Tablet (≤1100px) */
+    @media(max-width:1100px){
+      .nav { padding:0 40px; }
+      .wrap { padding:0 40px; }
+      .hero-inner { grid-template-columns:1fr; }
+      .hero-orbital { display:none; }
+      .hero-h1 { font-size:clamp(40px,6vw,72px); }
+      .hero-sub { font-size:16px; max-width:100%; }
+      .approach-header { grid-template-columns:1fr; gap:28px; }
+      .approach-steps { grid-template-columns:1fr 1fr; }
+      .step:nth-child(2){ border-right:none; }
+      .step:nth-child(3){ border-top:1px solid var(--border); }
+      .uni-grid { grid-template-columns:1fr; gap:48px; }
+      .waterloo-partner-btn { margin-left:32px; }
+      .eir-header { grid-template-columns:1fr; gap:28px; }
+      .members-grid { grid-template-columns:1fr 1fr; gap:2px; }
+      .fund-steps { grid-template-columns:1fr; border-radius:14px; }
+      .ft-card { border-right:none; border-bottom:1px solid var(--border); }
+      .ft-card:last-child { border-bottom:none; }
+      .corp-header { grid-template-columns:1fr; gap:28px; }
+      .corp-phases { grid-template-columns:1fr; }
+      .c-arrow { display:none; }
+      .c-phase { border-radius:0; border-top:none; }
+      .c-phase:first-child { border-radius:12px 12px 0 0; border-top:1px solid var(--border); }
+      .c-phase:last-child  { border-radius:0 0 12px 12px; }
+      .portfolio-grid { grid-template-columns:1fr 1fr; }
+      .about-inner { max-width:100%; }
+      .stats-row { grid-template-columns:1fr 1fr; }
+      .s-cell:nth-child(2){ border-right:none; }
+      .s-cell:nth-child(3){ border-top:1px solid var(--border); }
+      .team-grid { grid-template-columns:1fr; gap:16px; }
+      .sub-inner { grid-template-columns:1fr; gap:40px; }
+      .footer-grid { grid-template-columns:1fr 1fr; gap:32px; }
+    }
+
+    /* Mobile (≤640px) */
+    @media(max-width:640px){
+      /* Nav */
+      .nav { padding:0 20px; height:60px; }
+      .nav-links { display:none; }
+      /* Logo clip smaller on mobile */
+      .logo { width:160px; height:34px; }
+      .logo img { width:160px; height:160px; }
+
+      /* Spacing */
+      .wrap { padding:0 20px; }
+      #hero { padding-top:60px; }
+      #approach, #universities, #eir, #fund, #corporate,
+      #portfolio, #about, #team, #subscribe { padding:64px 0; }
+      #stats { /* no padding override needed */ }
+
+      /* Hero */
+      .hero-inner { padding:0; }
+      .hero-badge { font-size:10px; padding:6px 12px 6px 8px; margin-bottom:24px; }
+      h1 { font-size:clamp(36px,10vw,56px); }
+      .hero-sub { font-size:15px; margin-bottom:32px; }
+      .hero-actions { gap:10px; margin-bottom:40px; }
+      .btn { padding:12px 20px; font-size:11px; }
+
+      /* Approach */
+      .approach-steps { grid-template-columns:1fr; border-radius:10px; }
+      .step { border-right:none; border-bottom:1px solid var(--border); }
+      .step:last-child { border-bottom:none; }
+      .step:nth-child(3){ border-top:none; }
+
+      /* Uni */
+      .waterloo-row { flex-direction:column; align-items:flex-start; gap:16px; }
+      .waterloo-partner-btn { margin-left:0; }
+      .waterloo-logo img { height:56px; }
+
+      /* EIR */
+      .eir-header-right .btn { display:none; } /* hide on mobile, show in footer */
+      .members-grid { grid-template-columns:1fr 1fr; gap:2px; }
+      .m-body { padding:16px 16px 18px; }
+      .m-name { font-size:16px; }
+      .m-desc { font-size:12px; }
+      .eir-footer { flex-direction:column; gap:12px; align-items:flex-start; }
+
+      /* Fund */
+      .fund-lede { font-size:15px; }
+
+      /* Portfolio */
+      .portfolio-grid { grid-template-columns:1fr 1fr; }
+      .portfolio-header { flex-direction:column; align-items:flex-start; gap:12px; }
+
+      /* Stats */
+      .stats-row { grid-template-columns:1fr 1fr; }
+      .s-cell { padding:36px 20px; border-bottom:1px solid var(--border); }
+      .s-cell:nth-child(2){ border-right:none; }
+      .s-cell:nth-child(3){ border-top:none; }
+      .s-cell:nth-child(4){ border-bottom:none; border-right:none; }
+      .s-n { font-size:44px; }
+
+      /* Team */
+      .team-grid { grid-template-columns:1fr; gap:16px; }
+      .t-body { padding:24px 20px; }
+      .t-name { font-size:28px; }
+      .t-bio { font-size:14px; }
+
+      /* Subscribe */
+      .sub-row { flex-direction:column; }
+      .sub-btn { width:100%; justify-content:center; }
+
+      /* Footer */
+      .footer-grid { grid-template-columns:1fr; gap:28px; }
+      .footer-btm { flex-direction:column; gap:8px; text-align:center; }
+      footer { padding:44px 0 28px; }
+      /* Footer logo smaller */
+      .fb-logo-wrap { width:160px; height:34px; }
+      .fb-logo-wrap img { width:160px; height:160px; }
+    }
+
+    /* Extra small (≤380px) */
+    @media(max-width:380px){
+      .members-grid { grid-template-columns:1fr; }
+      .portfolio-grid { grid-template-columns:1fr; }
+      .stats-row { grid-template-columns:1fr; }
+      .s-cell { border-right:none; }
     }
   </style>
 </head>
@@ -503,7 +624,21 @@
     <li><a href="#team">Team</a></li>
     <li><a href="#subscribe" class="nav-cta">Stay in Touch</a></li>
   </ul>
+  <!-- Mobile menu button -->
+  <button class="nav-mobile-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile menu drawer -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <a href="#approach"   onclick="closeMobileMenu()">Approach</a>
+  <a href="#universities" onclick="closeMobileMenu()">University Partners</a>
+  <a href="#eir"        onclick="closeMobileMenu()">EIR Club</a>
+  <a href="#portfolio"  onclick="closeMobileMenu()">Portfolio</a>
+  <a href="#team"       onclick="closeMobileMenu()">Team</a>
+  <a href="#subscribe"  onclick="closeMobileMenu()" class="mobile-drawer-cta">Stay in Touch</a>
+</div>
 
 <!-- ① HERO -->
 <section id="hero">
@@ -514,7 +649,7 @@
       <h1 class="hero-h1 a2">Where Breakthroughs<br>Become <em>Companies.</em></h1>
       <p class="hero-sub a3">We find the world's most important technologies in university labs and build fundable companies around them — pairing breakthrough IP with proven operators and the capital to scale.</p>
       <div class="hero-actions a4">
-        <a href="#subscribe" class="btn btn-coral">Partner with Us</a>
+        <a href="#universities" class="btn btn-coral">Partner with Us</a>
         <a href="#eir" class="btn btn-white">Join EIR Club</a>
       </div>
     </div>
@@ -614,6 +749,7 @@
         <div class="waterloo-row">
           <div class="waterloo-logo">
             <img src="Waterloo.avif" alt="University of Waterloo" />
+            <span class="waterloo-caption">Launch Partner</span>
           </div>
           <a href="#subscribe" class="btn btn-coral waterloo-partner-btn" style="font-size:11px; padding:11px 22px;">Partner with Us</a>
         </div>
@@ -857,7 +993,7 @@
         <div class="t-body">
           <div class="t-name">Marco Janeczek</div>
           <span class="t-role">Co-Founder</span>
-          <p class="t-bio">Investment professional at L-SPARK and H-FARM, founder of Infinite Ventures with 12+ portfolio companies, and Head of Corporate Development at Tough Commerce (YC). He has led 3 prior university tech transfers and has raised $60M and generated $300M in exits as an operator.</p>
+          <p class="t-bio">20+ years building and backing startups with multiple portfolio exits to buyers including Microsoft, Salesforce, Autodesk, Hootsuite, and others. Marco's edge is practical: finding strong ideas early, helping shape the company around them, and pushing from product and partnerships through to distribution and capital.</p>
           <div class="t-tags">
             <span class="t-tag">L-SPARK</span>
             <span class="t-tag">Infinite Ventures</span>
@@ -953,6 +1089,17 @@
 </footer>
 
 <script>
+  function toggleMobileMenu() {
+    const drawer = document.getElementById('mobileDrawer');
+    const btn = document.querySelector('.nav-mobile-btn');
+    drawer.classList.toggle('open');
+    btn.classList.toggle('open');
+  }
+  function closeMobileMenu() {
+    document.getElementById('mobileDrawer').classList.remove('open');
+    document.querySelector('.nav-mobile-btn').classList.remove('open');
+  }
+
   function doSubscribe() {
     const el = document.getElementById('subEmail');
     if (!el.value.trim() || !el.value.includes('@')) {
