@@ -199,9 +199,18 @@
     .waterloo-row {
       display:flex; align-items:center; gap:0; margin-top:36px; flex-wrap:wrap;
     }
-    .waterloo-logo { display:flex; flex-direction:column; gap:8px; }
-    .waterloo-logo img { height:80px; width:auto; }
-    .waterloo-caption { font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); }
+    .waterloo-logo {
+      display:inline-flex; flex-direction:column; align-items:center; gap:12px;
+      background:transparent;
+      border:1px solid var(--coral);
+      border-radius:10px;
+      padding:22px 32px;
+    }
+    .waterloo-logo img { height:72px; width:auto; }
+    .waterloo-caption {
+      font-size:10px; font-weight:700; letter-spacing:.2em;
+      text-transform:uppercase; color:var(--coral); text-align:center;
+    }
     .waterloo-partner-btn { margin-left:64px; }
 
     .uni-blocks { display:flex; flex-direction:column; gap:12px; }
@@ -1054,7 +1063,7 @@
         <div class="fb-logo-wrap">
           <img src="Moonshots.png" alt="Moonshots" />
         </div>
-        <p>A deep-tech venture studio turning university research into funded, scalable companies. Launch partner: University of Waterloo.</p>
+        <p>A deep-tech venture studio turning university research into funded, scalable companies.</p>
       </div>
       <div class="fc">
         <h5>Studio</h5>
