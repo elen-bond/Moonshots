@@ -62,8 +62,23 @@
       background:rgba(0,0,0,0.94); backdrop-filter:blur(20px);
       border-bottom:1px solid var(--border);
     }
-    .logo { display:inline-flex; align-items:center; text-decoration:none; }
-    .logo img { height:38px; width:auto; }
+    /* Logo is a square PNG with padding — clip to show just the wordmark */
+    .logo {
+      display:inline-block;
+      width:220px;
+      height:46px;
+      overflow:hidden;
+      position:relative;
+      text-decoration:none;
+      flex-shrink:0;
+    }
+    .logo img {
+      width:220px;
+      height:220px; /* square 1:1 aspect ratio */
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+    }
     .nav-links { display:flex; align-items:center; gap:32px; list-style:none; }
     .nav-links a {
       color:var(--muted); text-decoration:none; font-size:12px; font-weight:600;
@@ -182,9 +197,10 @@
     .uni-lede { font-size:16px; line-height:1.78; margin-bottom:20px; }
 
     .waterloo-row {
-      display:flex; align-items:center; gap:24px; margin-top:36px; flex-wrap:wrap;
+      display:flex; align-items:center; gap:0; margin-top:36px; flex-wrap:wrap;
     }
-    .waterloo-logo img { height:48px; width:auto; filter:brightness(0) invert(1); opacity:0.88; }
+    .waterloo-logo img { height:68px; width:auto; filter:brightness(0) invert(1); opacity:0.88; }
+    .waterloo-partner-btn { margin-left:36px; }
 
     .uni-blocks { display:flex; flex-direction:column; gap:12px; }
     .u-block {
@@ -260,135 +276,45 @@
       z-index:1;
     }
 
-    .ft-step {
-      display:flex;
-      flex-direction:column;
-      padding:0 32px 48px 0;
-      position:relative;
+    /* Fund cards grid */
+    .fund-steps {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      border:1px solid var(--border); border-radius:14px; overflow:hidden;
     }
-
-    /* Stagger each step upward */
-    .ft-step:nth-child(1) { margin-top:80px; }
-    .ft-step:nth-child(2) { margin-top:40px; }
-    .ft-step:nth-child(3) { margin-top:0; }
-
-    .ft-connector {
-      position:absolute;
-      bottom:0; right:-1px;
-      width:calc(100% + 32px);
-      height:2px;
-      background:linear-gradient(90deg, var(--border), rgba(224,92,58,0.3));
-      z-index:0;
+    .ft-card {
+      padding:40px 32px; border-right:1px solid var(--border);
+      position:relative; cursor:default; transition:background .3s;
     }
-
-    .ft-dot-wrap {
-      display:flex; align-items:center; gap:16px; margin-bottom:20px;
+    .ft-card:last-child { border-right:none; }
+    .ft-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:2px;
+      background:var(--coral); transform:scaleX(0); transform-origin:left; transition:transform .35s;
     }
-    .ft-dot {
-      width:40px; height:40px; border-radius:50%;
-      background:var(--coral); color:#fff;
-      font-size:14px; font-weight:800;
-      display:flex; align-items:center; justify-content:center; flex-shrink:0;
-      box-shadow:0 0 20px rgba(224,92,58,.35);
-    }
-    .ft-range {
-      font-size:12px; font-weight:700; color:var(--coral);
-      background:rgba(224,92,58,.08); border:1px solid rgba(224,92,58,.2);
-      border-radius:3px; padding:3px 10px; letter-spacing:.04em;
-    }
+    .ft-card:hover { background:rgba(224,92,58,.06); }
+    .ft-card:hover::before { transform:scaleX(1); }
+    .ft-card:hover .ft-title { color:var(--coral); }
 
-    .ft-label { font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:6px; }
-    .ft-title { font-family:var(--display); font-size:28px; font-weight:500; color:var(--white); margin-bottom:10px; line-height:1.1; }
-    .ft-desc  { font-size:14px; line-height:1.68; max-width:300px; }
-
-    /* Exit point with emblem */
-    .ft-exit {
-      display:flex; flex-direction:column; align-items:flex-start; padding:0 0 48px 0;
-      position:relative;
-    }
-
-    .ft-exit-emblem {
-      width:64px; height:64px; margin-bottom:16px;
-    }
-    .ft-exit-emblem img { width:100%; height:100%; object-fit:contain; }
-    .ft-exit-label { font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--coral); display:block; margin-bottom:6px; }
-    .ft-exit-title { font-family:var(--display); font-size:28px; font-weight:500; color:var(--white); margin-bottom:10px; }
-    .ft-exit-desc  { font-size:14px; line-height:1.68; max-width:280px; }
-
-    /* Revised horizontal timeline using flex + SVG arrow */
-    .timeline-outer {
-      position:relative;
-    }
-
-    .timeline-nodes {
-      display:flex;
-      align-items:flex-end;
-      position:relative;
-      padding-bottom:60px;
-    }
-
-    .tn-item {
-      flex:1;
-      display:flex;
-      flex-direction:column;
-      position:relative;
-    }
-
-    /* Rising steps — each item is higher than previous */
-    .tn-item:nth-child(1) .tn-card { margin-top:120px; }
-    .tn-item:nth-child(2) .tn-card { margin-top:60px; }
-    .tn-item:nth-child(3) .tn-card { margin-top:0; }
-
-    .tn-card {
-      background:var(--surface);
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:28px 26px;
-      transition:border-color .25s, transform .25s;
-      position:relative;
-      z-index:2;
-    }
-    .tn-card:hover { border-color:rgba(224,92,58,.3); transform:translateY(-3px); }
-
-    .tn-dot {
-      width:38px; height:38px; border-radius:50%;
-      background:var(--coral); color:#fff;
-      font-size:13px; font-weight:800;
+    /* Number / emblem toggle */
+    .ft-icon { width:36px; height:36px; margin-bottom:20px; position:relative; }
+    .ft-num-el {
+      width:36px; height:36px; background:var(--coral); color:#fff;
+      border-radius:50%; font-size:13px; font-weight:800;
       display:flex; align-items:center; justify-content:center;
-      margin-bottom:18px;
-      box-shadow:0 0 18px rgba(224,92,58,.35);
+      position:absolute; inset:0; transition:opacity .25s, transform .25s;
     }
-    .tn-label { font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--coral); display:block; margin-bottom:6px; }
-    .tn-title { font-family:var(--display); font-size:26px; font-weight:500; color:var(--white); margin-bottom:10px; }
-    .tn-desc  { font-size:14px; line-height:1.65; }
-    .tn-pill  { display:inline-block; margin-top:12px; background:var(--srf2); border:1px solid var(--border); border-radius:4px; padding:4px 11px; font-size:12px; font-weight:700; color:var(--white); }
-
-    /* Connector line + arrow between items */
-    .tn-arrow {
-      width:60px; flex-shrink:0;
+    .ft-emblem-el {
+      width:36px; height:36px; position:absolute; inset:0;
       display:flex; align-items:center; justify-content:center;
-      position:relative;
+      opacity:0; transition:opacity .25s, transform .25s; transform:scale(0.6);
     }
+    .ft-emblem-el img { width:36px; height:36px; object-fit:contain; }
+    .ft-card:hover .ft-num-el    { opacity:0; transform:scale(0.6); }
+    .ft-card:hover .ft-emblem-el { opacity:1; transform:scale(1); }
 
-    /* Diagonal arrow connector */
-    .tn-arrow svg {
-      overflow:visible;
-    }
-
-    /* Exit node */
-    .tn-exit {
-      display:flex; flex-direction:column; align-items:flex-start;
-      padding:0 0 0 24px; flex-shrink:0; width:180px;
-      position:relative; z-index:2;
-    }
-
-    .tn-exit-img {
-      width:72px; height:72px; margin-bottom:14px;
-    }
-    .tn-exit-img img { width:100%; height:100%; object-fit:contain; }
-    .tn-exit-label { font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--coral); display:block; margin-bottom:6px; }
-    .tn-exit-title { font-family:var(--display); font-size:22px; font-weight:500; color:var(--white); margin-bottom:8px; line-height:1.15; }
-    .tn-exit-desc  { font-size:13px; line-height:1.62; }
+    .ft-label { font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--coral); display:block; margin-bottom:6px; }
+    .ft-title { font-family:var(--display); font-size:28px; font-weight:500; color:var(--white); margin-bottom:12px; transition:color .3s; }
+    .ft-desc  { font-size:14px; line-height:1.68; }
+    .ft-pill  { display:inline-block; margin-top:14px; background:var(--srf2); border:1px solid var(--border); border-radius:4px; padding:5px 12px; font-size:12px; font-weight:700; color:var(--white); }
 
     /* ── CORPORATE ── */
     #corporate { padding:100px 0; border-top:1px solid var(--border); background:var(--black); }
@@ -442,9 +368,10 @@
     }
     .tcard:hover::before { opacity:1; }
 
-    /* Photo full bleed */
+    /* Photo — smaller square */
     .t-photo {
-      width:100%; aspect-ratio:16/9; overflow:hidden; position:relative;
+      width:100%; aspect-ratio:3/2; overflow:hidden; position:relative;
+      max-height:260px;
     }
     .t-photo img {
       width:100%; height:100%; object-fit:cover; object-position:top center;
@@ -491,7 +418,22 @@
     /* ── FOOTER ── */
     footer { background:var(--black); border-top:1px solid var(--border); padding:56px 0 36px; }
     .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:56px; padding-bottom:44px; border-bottom:1px solid var(--border); }
-    .fb-logo { height:38px; width:auto; margin-bottom:14px; display:block; }
+    /* Footer logo clip */
+    .fb-logo-wrap {
+      display:block;
+      width:240px;
+      height:50px;
+      overflow:hidden;
+      position:relative;
+      margin-bottom:16px;
+    }
+    .fb-logo-wrap img {
+      width:240px;
+      height:240px;
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+    }
     .fb p { font-size:14px; line-height:1.72; max-width:260px; }
     .fc h5 { font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-bottom:18px; }
     .fc ul { list-style:none; display:flex; flex-direction:column; gap:12px; }
@@ -528,15 +470,7 @@
       .c-phase{border-radius:0;border-top:none}
       .c-phase:first-child{border-radius:12px 12px 0 0;border-top:1px solid var(--border)}
       .c-phase:last-child{border-radius:0 0 12px 12px}
-      /* Timeline stacking */
-      .timeline-nodes{flex-direction:column; align-items:stretch; padding-bottom:0;}
-      .tn-item:nth-child(1) .tn-card,
-      .tn-item:nth-child(2) .tn-card,
-      .tn-item:nth-child(3) .tn-card{margin-top:0;}
-      .tn-arrow{display:none;}
-      .tn-card{border-radius:0; border-top:none;}
-      .tn-item:first-child .tn-card{border-radius:12px 12px 0 0; border-top:1px solid var(--border);}
-      .tn-exit{width:100%; padding:24px 26px; background:var(--surface); border:1px solid var(--border); border-top:none; border-radius:0 0 12px 12px;}
+      .fund-steps{grid-template-columns:1fr}
     }
     @media(max-width:640px){
       .nav{padding:0 20px} .nav-links{display:none} .wrap{padding:0 20px}
@@ -681,7 +615,7 @@
           <div class="waterloo-logo">
             <img src="Waterloo.avif" alt="University of Waterloo" />
           </div>
-          <a href="#subscribe" class="btn btn-coral" style="font-size:11px; padding:11px 22px;">Partner with Us</a>
+          <a href="#subscribe" class="btn btn-coral waterloo-partner-btn" style="font-size:11px; padding:11px 22px;">Partner with Us</a>
         </div>
       </div>
 
@@ -788,85 +722,43 @@
   </div>
 </section>
 
-<!-- ⑤ FUND (Rising Timeline) -->
+<!-- ⑤ FUND -->
 <section id="fund">
   <div class="wrap">
     <span class="label">Fund &amp; Capital</span>
     <h2>Capital Designed for<br><em>Deep-Tech Timelines</em></h2>
     <p class="fund-lede">Deep tech takes longer to commercialize than SaaS — but the defensibility is exponentially higher. We structure capital to match those realities, moving fast early and building the right relationships for the journey to exit.</p>
 
-    <div class="timeline-outer">
-      <div class="timeline-nodes">
-
-        <!-- Node 1 -->
-        <div class="tn-item">
-          <div class="tn-card">
-            <div class="tn-dot">1</div>
-            <span class="tn-label">Pre-Seed</span>
-            <div class="tn-title">Party Round</div>
-            <p class="tn-desc">Organized fast through our EIR co-investors, university alumni, and strategic angels. We close rounds in weeks, not quarters.</p>
-            <span class="tn-pill">$250K &ndash; $750K</span>
-          </div>
+    <div class="fund-steps">
+      <div class="ft-card">
+        <div class="ft-icon">
+          <div class="ft-num-el">1</div>
+          <div class="ft-emblem-el"><img src="Moonshots_Emblem.png" alt="" /></div>
         </div>
-
-        <!-- Arrow 1 -->
-        <div class="tn-arrow">
-          <svg width="60" height="80" viewBox="0 0 60 80">
-            <defs>
-              <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
-                <path d="M0,0 L8,4 L0,8 Z" fill="rgba(224,92,58,0.5)"/>
-              </marker>
-            </defs>
-            <path d="M 10 70 Q 30 50 50 10" stroke="rgba(224,92,58,0.4)" stroke-width="1.5" fill="none" stroke-dasharray="4,4" marker-end="url(#arrowhead)"/>
-          </svg>
+        <span class="ft-label">Pre-Seed</span>
+        <div class="ft-title">Party Round</div>
+        <p class="ft-desc">Organized fast through our EIR co-investors, university alumni, and strategic angels. We close rounds in weeks, not quarters.</p>
+        <span class="ft-pill">$250K &ndash; $750K</span>
+      </div>
+      <div class="ft-card">
+        <div class="ft-icon">
+          <div class="ft-num-el">2</div>
+          <div class="ft-emblem-el"><img src="Moonshots_Emblem.png" alt="" /></div>
         </div>
-
-        <!-- Node 2 -->
-        <div class="tn-item">
-          <div class="tn-card">
-            <div class="tn-dot">2</div>
-            <span class="tn-label">Seed</span>
-            <div class="tn-title">Strategic Raise</div>
-            <p class="tn-desc">Angels, family offices, and corporate CVCs with direct relevance to each company's market and a natural path to exit.</p>
-            <span class="tn-pill">$1M &ndash; $3M</span>
-          </div>
+        <span class="ft-label">Seed</span>
+        <div class="ft-title">Strategic Raise</div>
+        <p class="ft-desc">Angels, family offices, and corporate CVCs with direct relevance to each company's market and a natural path to exit.</p>
+        <span class="ft-pill">$1M &ndash; $3M</span>
+      </div>
+      <div class="ft-card">
+        <div class="ft-icon">
+          <div class="ft-num-el">3</div>
+          <div class="ft-emblem-el"><img src="Moonshots_Emblem.png" alt="" /></div>
         </div>
-
-        <!-- Arrow 2 -->
-        <div class="tn-arrow">
-          <svg width="60" height="80" viewBox="0 0 60 80">
-            <path d="M 10 70 Q 30 50 50 10" stroke="rgba(224,92,58,0.4)" stroke-width="1.5" fill="none" stroke-dasharray="4,4" marker-end="url(#arrowhead)"/>
-          </svg>
-        </div>
-
-        <!-- Node 3 -->
-        <div class="tn-item">
-          <div class="tn-card">
-            <div class="tn-dot">3</div>
-            <span class="tn-label">Growth</span>
-            <div class="tn-title">Corporate or CSE</div>
-            <p class="tn-desc">A pre-built corporate relationship becomes the natural exit through acquisition, licensing, or CSE listing.</p>
-            <span class="tn-pill">3 &ndash; 6 Years</span>
-          </div>
-        </div>
-
-        <!-- Arrow to exit -->
-        <div class="tn-arrow" style="width:48px;">
-          <svg width="48" height="80" viewBox="0 0 48 80">
-            <path d="M 8 70 Q 24 40 40 5" stroke="rgba(224,92,58,0.6)" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
-          </svg>
-        </div>
-
-        <!-- Exit node with emblem -->
-        <div class="tn-exit">
-          <div class="tn-exit-img">
-            <img src="Moonshots_Emblem.png" alt="Moonshots" />
-          </div>
-          <span class="tn-exit-label">Growth &amp; Exit</span>
-          <div class="tn-exit-title">Corporate Acquisition or CSE</div>
-          <p class="tn-exit-desc">3 to 6 year horizon, defined from formation.</p>
-        </div>
-
+        <span class="ft-label">Growth &amp; Exit</span>
+        <div class="ft-title">Corporate or CSE</div>
+        <p class="ft-desc">A pre-built corporate relationship becomes the natural exit through acquisition, licensing, or CSE listing. 3 to 6 year horizon, defined from formation.</p>
+        <span class="ft-pill">3 &ndash; 6 Years</span>
       </div>
     </div>
   </div>
@@ -878,7 +770,7 @@
     <div class="corp-header">
       <div>
         <span class="label">Corporate Alliances</span>
-        <h2>Corporates Aren't<br>the End. <em>They're the Start.</em></h2>
+        <h2>Corporates Aren't Rivals.<br><em>They're Partners.</em></h2>
       </div>
       <p>Most startups meet their corporate acquirer at the finish line. We introduce ours at the beginning — turning strategic partners into early customers, co-investors, and ultimately acquirers. The exit relationship is built in from formation.</p>
     </div>
@@ -1023,7 +915,9 @@
   <div class="wrap">
     <div class="footer-grid">
       <div class="fb">
-        <img class="fb-logo" src="Moonshots.png" alt="Moonshots" />
+        <div class="fb-logo-wrap">
+          <img src="Moonshots.png" alt="Moonshots" />
+        </div>
         <p>A deep-tech venture studio turning university research into funded, scalable companies. Launch partner: University of Waterloo.</p>
       </div>
       <div class="fc">
