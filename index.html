@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moonshots — Deep-Tech Venture Studio</title>
+  <meta name="description" content="A deep-tech venture studio that transforms university research into funded, scalable companies." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #000000;
+      --bg:      #050505;
+      --surface: #111111;
+      --srf2:    #181818;
+      --white:   #F4EFE9;
+      --w60:     rgba(244,239,233,0.60);
+      --coral:   #E05C3A;
+      --c-glow:  rgba(224,92,58,0.16);
+      --c-sub:   rgba(224,92,58,0.08);
+      --muted:   #6A6A6A;
+      --border:  #1E1E1E;
+      --blight:  #2A2A2A;
+      --display: 'Cormorant Garamond', Georgia, serif;
+      --sans:    'Outfit', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* TYPE */
+    h1 { font-family: var(--display); font-size: clamp(54px,7.5vw,108px); font-weight:500; line-height:1.03; letter-spacing:-0.025em; }
+    h2 { font-family: var(--display); font-size: clamp(36px,5vw,68px);    font-weight:500; line-height:1.06; letter-spacing:-0.02em; }
+    h3 { font-family: var(--display); font-size: clamp(22px,3vw,38px);    font-weight:500; line-height:1.14; }
+    h4 { font-family: var(--sans);    font-size: 15px; font-weight:700; color:var(--white); }
+    p  { color: var(--muted); line-height: 1.75; }
+    em { font-style:italic; color:var(--w60); }
+
+    .label {
+      display:block; font-size:11px; font-weight:700;
+      letter-spacing:.2em; text-transform:uppercase;
+      color:var(--coral); margin-bottom:18px;
+    }
+
+    /* LAYOUT */
+    .wrap { max-width:1280px; margin:0 auto; padding:0 64px; }
+
+    /* NAV */
+    .nav {
+      position:fixed; top:0; left:0; right:0; z-index:200;
+      height:66px; display:flex; align-items:center; justify-content:space-between;
+      padding:0 64px;
+      background:rgba(0,0,0,0.94); backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--border);
+    }
+    .logo { display:inline-flex; align-items:center; text-decoration:none; }
+    .logo img { height:28px; width:auto; }
+    .nav-links { display:flex; align-items:center; gap:32px; list-style:none; }
+    .nav-links a {
+      color:var(--muted); text-decoration:none; font-size:12px; font-weight:600;
+      letter-spacing:.12em; text-transform:uppercase; transition:color .2s;
+    }
+    .nav-links a:hover { color:var(--white); }
+    .nav-cta { background:var(--coral)!important; color:#fff!important; padding:9px 20px; border-radius:4px; }
+    .nav-cta:hover { opacity:.88; }
+
+    /* BUTTONS */
+    .btn {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:14px 28px; border-radius:4px; font-family:var(--sans);
+      font-size:12px; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
+      text-decoration:none; cursor:pointer; border:none; transition:all .2s;
+    }
+    .btn-coral { background:var(--coral); color:#fff; }
+    .btn-coral:hover { background:#f06a44; transform:translateY(-2px); box-shadow:0 12px 32px rgba(224,92,58,.28); }
+    .btn-ghost { background:transparent; color:var(--white); border:1px solid var(--blight); }
+    .btn-ghost:hover { border-color:rgba(244,239,233,.35); transform:translateY(-2px); }
+
+    /* ═══ ① HERO ═══ */
+    #hero {
+      min-height:100vh; display:flex; align-items:center;
+      position:relative; overflow:hidden; padding-top:66px;
+    }
+    .hero-glow {
+      position:absolute; inset:0; pointer-events:none;
+      background:
+        radial-gradient(ellipse 55% 55% at 78% 48%, rgba(224,92,58,.09) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 15% 75%, rgba(224,92,58,.04) 0%, transparent 60%);
+    }
+    .hero-inner {
+      position:relative; z-index:1; width:100%;
+      display:grid; grid-template-columns:1fr 440px;
+      gap:40px; align-items:center;
+    }
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(224,92,58,.09); border:1px solid rgba(224,92,58,.22);
+      border-radius:100px; padding:7px 16px 7px 10px;
+      font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+      color:var(--coral); margin-bottom:36px;
+    }
+    .hero-pulse {
+      width:6px; height:6px; border-radius:50%; background:var(--coral);
+      animation:pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.7)} }
+    .hero-h1 { margin-bottom:24px; }
+    .hero-sub { font-size:17px; line-height:1.72; color:var(--muted); max-width:520px; margin-bottom:44px; }
+    .hero-actions { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+
+    /* Orbital */
+    .hero-orbital { position:relative; width:100%; aspect-ratio:1; max-width:440px; }
+    @keyframes spin-a  { from{transform-origin:230px 230px;transform:rotate(0)}   to{transform-origin:230px 230px;transform:rotate(360deg)} }
+    @keyframes spin-b  { from{transform-origin:230px 230px;transform:rotate(0)}   to{transform-origin:230px 230px;transform:rotate(-360deg)} }
+    @keyframes spin-c  { from{transform-origin:230px 230px;transform:rotate(30deg)} to{transform-origin:230px 230px;transform:rotate(390deg)} }
+    .oa { animation:spin-a 7s  linear infinite; }
+    .ob { animation:spin-b 13s linear infinite; }
+    .oc { animation:spin-c 19s linear infinite; }
+
+    /* ═══ ② APPROACH ═══ */
+    #approach { border-top:1px solid var(--border); padding:100px 0; }
+    .approach-header {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:64px; align-items:end; margin-bottom:56px;
+    }
+    .approach-header p { font-size:17px; line-height:1.75; }
+    .approach-steps {
+      display:grid; grid-template-columns:repeat(4,1fr);
+      border:1px solid var(--border); border-radius:14px; overflow:hidden;
+    }
+    .step {
+      padding:36px 28px; border-right:1px solid var(--border);
+      position:relative; cursor:default;
+      transition:background .3s, border-color .3s;
+    }
+    .step:last-child { border-right:none; }
+    .step::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:2px;
+      background:var(--coral); transform:scaleX(0); transform-origin:left;
+      transition:transform .35s;
+    }
+    .step:hover { background:rgba(224,92,58,.06); }
+    .step:hover::before { transform:scaleX(1); }
+    .step:hover .step-title { color:var(--coral); }
+    .step-num {
+      width:32px; height:32px; background:var(--coral); color:#fff;
+      border-radius:50%; font-size:13px; font-weight:800;
+      display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+    }
+    .step-title {
+      font-family:var(--display); font-size:26px; font-weight:500;
+      color:var(--white); margin-bottom:10px;
+      transition:color .3s;
+    }
+    .step p { font-size:14px; line-height:1.7; }
+
+    /* ═══ ③ UNIVERSITY ═══ */
+    #universities { padding:100px 0; background:var(--bg); border-top:1px solid var(--border); }
+    .uni-grid {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:80px; align-items:start; margin-top:56px;
+    }
+    .uni-lede { font-size:16px; line-height:1.78; margin-bottom:20px; }
+
+    .partner-badge {
+      display:inline-flex; align-items:center; gap:14px;
+      background:rgba(224,92,58,.07); border:1px solid rgba(224,92,58,.22);
+      border-radius:10px; padding:16px 22px; margin-top:32px;
+    }
+    .p-dot { width:8px; height:8px; border-radius:50%; background:var(--coral); box-shadow:0 0 10px rgba(224,92,58,.6); flex-shrink:0; }
+    .p-text { font-size:12px; font-weight:700; color:var(--coral); letter-spacing:.06em; text-transform:uppercase; }
+    .p-sub  { font-size:12px; color:var(--muted); margin-top:3px; }
+
+    .waterloo-logo {
+      margin-top:32px;
+      display:block;
+    }
+    .waterloo-logo img {
+      height:52px;
+      width:auto;
+      filter:brightness(0) invert(1);
+      opacity:0.9;
+    }
+
+    .uni-blocks { display:flex; flex-direction:column; gap:12px; }
+    .u-block {
+      background:var(--surface); border:1px solid var(--border); border-radius:12px;
+      padding:24px 26px; display:flex; align-items:flex-start; gap:14px;
+      transition:border-color .2s;
+    }
+    .u-block:hover { border-color:var(--blight); }
+    .u-block-icon { font-size:18px; flex-shrink:0; margin-top:2px; }
+    .u-block h4 { font-size:14px; margin-bottom:5px; }
+    .u-block p  { font-size:13px; line-height:1.62; }
+
+    /* ═══ ④ EIR ═══ */
+    #eir { padding:100px 0; border-top:1px solid var(--border); background:var(--black); }
+    .eir-header {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:64px; align-items:end; margin-bottom:52px;
+    }
+    .eir-header-right p { font-size:16px; line-height:1.75; margin-bottom:24px; }
+
+    .members-grid {
+      display:grid; grid-template-columns:repeat(4,1fr);
+      gap:2px; margin-bottom:24px;
+    }
+    .mcard {
+      background:var(--surface); padding:28px 24px;
+      transition:background .25s; position:relative; overflow:hidden; cursor:default;
+    }
+    .mcard::after {
+      content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+      background:var(--coral); transform:scaleX(0); transform-origin:left; transition:transform .4s;
+    }
+    .mcard:hover { background:#161616; }
+    .mcard:hover::after { transform:scaleX(1); }
+    .mcard:hover .m-name { color:var(--coral); }
+
+    .m-avatar {
+      width:60px; height:60px; border-radius:50%;
+      overflow:hidden; margin-bottom:16px; flex-shrink:0;
+      border:1px solid var(--blight);
+    }
+    .m-avatar img { width:100%; height:100%; object-fit:cover; filter:grayscale(100%); }
+    .m-avatar-placeholder {
+      width:60px; height:60px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-family:var(--display); font-size:20px; font-weight:500; color:var(--muted);
+      background:var(--srf2); border:1px solid var(--blight); margin-bottom:16px;
+    }
+    .m-name { font-family:var(--display); font-size:20px; font-weight:500; color:var(--white); margin-bottom:3px; transition:color .3s; }
+    .m-exit { display:block; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--coral); margin-bottom:10px; }
+    .m-desc { font-size:13px; line-height:1.62; }
+
+    .eir-footer {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:20px 0 0; border-top:1px solid var(--border); margin-top:8px;
+    }
+    .eir-count {
+      font-size:13px; color:var(--muted);
+    }
+    .eir-count strong { color:var(--white); font-weight:600; }
+
+    /* ═══ ⑤ FUND ═══ */
+    #fund { padding:100px 0; background:var(--bg); border-top:1px solid var(--border); }
+    .fund-lede { font-size:16px; line-height:1.75; max-width:580px; margin-top:16px; margin-bottom:64px; }
+
+    /* Horizontal timeline */
+    .fund-timeline {
+      display:grid; grid-template-columns:1fr 64px 1fr 64px 1fr;
+      align-items:center;
+    }
+    .ft-stage {
+      background:var(--surface); border:1px solid var(--border); border-radius:12px;
+      padding:36px 28px; transition:border-color .25s, transform .25s;
+    }
+    .ft-stage:hover { border-color:var(--blight); transform:translateY(-3px); }
+    .ft-dot {
+      width:38px; height:38px; border-radius:50%; background:var(--coral);
+      color:#fff; font-size:13px; font-weight:800;
+      display:flex; align-items:center; justify-content:center; margin-bottom:20px;
+      box-shadow:0 0 20px rgba(224,92,58,.3);
+    }
+    .ft-label { font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--coral); display:block; margin-bottom:6px; }
+    .ft-title { font-family:var(--display); font-size:26px; font-weight:500; color:var(--white); margin-bottom:10px; }
+    .ft-desc  { font-size:14px; line-height:1.68; }
+    .ft-pill  { display:inline-block; margin-top:14px; background:var(--srf2); border:1px solid var(--border); border-radius:4px; padding:5px 12px; font-size:12px; font-weight:700; color:var(--white); }
+    .ft-arrow { text-align:center; color:var(--blight); font-size:28px; }
+
+    /* ═══ ⑥ CORPORATE ═══ */
+    #corporate { padding:100px 0; border-top:1px solid var(--border); background:var(--black); }
+    .corp-header {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:64px; align-items:end; margin-bottom:56px;
+    }
+    .corp-header p { font-size:17px; line-height:1.75; }
+
+    .corp-phases {
+      display:grid; grid-template-columns:1fr 44px 1fr 44px 1fr;
+      align-items:center;
+    }
+    .c-phase {
+      background:var(--surface); border:1px solid var(--border); border-radius:12px;
+      padding:32px 26px; transition:border-color .25s, transform .25s;
+    }
+    .c-phase:hover { border-color:rgba(224,92,58,.35); transform:translateY(-3px); }
+    .c-num { font-family:var(--display); font-size:40px; font-weight:500; color:rgba(224,92,58,.2); margin-bottom:12px; }
+    .c-tag { font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--coral); display:block; margin-bottom:6px; }
+    .c-title { font-size:16px; font-weight:700; color:var(--white); margin-bottom:8px; }
+    .c-phase p { font-size:14px; line-height:1.65; }
+    .c-arrow { text-align:center; color:var(--blight); font-size:22px; }
+
+    /* ═══ ⑦ PORTFOLIO ═══ */
+    #portfolio { padding:100px 0; background:var(--bg); border-top:1px solid var(--border); }
+    .portfolio-header {
+      display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:52px;
+    }
+    .portfolio-grid {
+      display:grid; grid-template-columns:repeat(4,1fr); gap:2px;
+    }
+    .p-card {
+      background:var(--surface); border:1px solid var(--border);
+      aspect-ratio:1; display:flex; align-items:center; justify-content:center;
+      padding:28px; position:relative; overflow:hidden;
+      transition:background .3s, border-color .3s;
+    }
+    .p-card:hover { background:#161616; border-color:var(--blight); }
+    .p-card img { width:100%; height:100%; object-fit:contain; filter:brightness(.85); transition:filter .3s; }
+    .p-card:hover img { filter:brightness(1); }
+    .p-card-overlay {
+      position:absolute; inset:0; background:rgba(224,92,58,0); display:flex; align-items:flex-end;
+      padding:16px; transition:background .3s;
+    }
+    .p-card:hover .p-card-overlay { background:rgba(224,92,58,.05); }
+
+    /* ═══ ⑧ ABOUT ═══ */
+    #about { padding:100px 0; border-top:1px solid var(--border); background:var(--black); }
+    .about-inner { max-width:760px; }
+    .about-inner p { font-size:17px; line-height:1.82; margin-bottom:18px; }
+    .about-inner p:last-child { margin-bottom:0; }
+
+    /* ═══ ⑨ STATS ═══ */
+    #stats { border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .stats-row { display:grid; grid-template-columns:repeat(4,1fr); }
+    .s-cell {
+      padding:56px 40px; text-align:center;
+      border-right:1px solid var(--border); transition:background .25s;
+    }
+    .s-cell:last-child { border-right:none; }
+    .s-cell:hover { background:rgba(255,255,255,.012); }
+    .s-n { display:block; font-family:var(--display); font-size:58px; font-weight:500; color:var(--white); line-height:1; margin-bottom:10px; }
+    .s-l { font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+
+    /* ═══ ⑩ TEAM ═══ */
+    #team { padding:100px 0; border-top:1px solid var(--border); background:var(--bg); }
+    .team-hd { margin-bottom:52px; }
+    .team-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+    .tcard {
+      background:var(--surface); padding:46px 42px;
+      position:relative; overflow:hidden;
+    }
+    .tcard::before {
+      content:''; position:absolute; top:0; left:0;
+      width:2px; height:100%; background:var(--coral); opacity:0; transition:opacity .3s;
+    }
+    .tcard:hover::before { opacity:1; }
+    .t-avatar {
+      width:72px; height:72px; border-radius:12px;
+      background:var(--srf2); border:1px solid var(--blight);
+      display:flex; align-items:center; justify-content:center;
+      font-family:var(--display); font-size:26px; font-weight:500; color:var(--muted);
+      margin-bottom:24px;
+    }
+    .t-name { font-family:var(--display); font-size:38px; font-weight:500; color:var(--white); line-height:1.05; margin-bottom:4px; }
+    .t-role { font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--coral); display:block; margin-bottom:24px; }
+    .t-points { list-style:none; display:flex; flex-direction:column; gap:9px; }
+    .t-points li { font-size:14px; color:var(--muted); display:flex; align-items:flex-start; gap:10px; line-height:1.52; }
+    .t-points li::before { content:''; display:inline-block; width:4px; height:4px; border-radius:50%; background:var(--coral); flex-shrink:0; margin-top:7px; }
+    .t-tags { display:flex; gap:8px; margin-top:24px; flex-wrap:wrap; }
+    .t-tag { background:var(--srf2); border:1px solid var(--border); border-radius:4px; padding:4px 11px; font-size:11px; font-weight:600; color:var(--muted); }
+
+    /* ═══ ⑪ SUBSCRIBE ═══ */
+    #subscribe { padding:90px 0; border-top:1px solid var(--border); background:var(--black); }
+    .sub-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .sub-lede { font-size:15px; line-height:1.75; max-width:360px; margin-top:14px; }
+    .sub-form { display:flex; flex-direction:column; gap:10px; }
+    .sub-row  { display:flex; gap:10px; }
+    .sub-input {
+      flex:1; background:var(--surface); border:1px solid var(--border);
+      border-radius:6px; padding:14px 18px; color:var(--white);
+      font-family:var(--sans); font-size:15px; outline:none; transition:border-color .2s;
+    }
+    .sub-input::placeholder { color:#3a3a3a; }
+    .sub-input:focus { border-color:var(--coral); }
+    .sub-btn {
+      background:var(--coral); color:#fff; border:none; border-radius:6px;
+      padding:14px 24px; font-family:var(--sans); font-size:12px; font-weight:700;
+      letter-spacing:.08em; text-transform:uppercase; cursor:pointer;
+      transition:background .2s, transform .15s; white-space:nowrap;
+    }
+    .sub-btn:hover { background:#f06a44; transform:translateY(-1px); }
+    .sub-note { font-size:12px; color:var(--muted); }
+    .sub-ok {
+      display:none; align-items:center; gap:10px; font-size:14px;
+      color:#5cd490; font-weight:500; padding:14px 18px;
+      background:rgba(92,212,144,.07); border:1px solid rgba(92,212,144,.2); border-radius:8px;
+    }
+    .sub-ok.show { display:flex; }
+
+    /* FOOTER */
+    footer { background:var(--black); border-top:1px solid var(--border); padding:56px 0 36px; }
+    .footer-grid {
+      display:grid; grid-template-columns:2fr 1fr 1fr 1fr;
+      gap:56px; padding-bottom:44px; border-bottom:1px solid var(--border);
+    }
+    .fb img { height:28px; width:auto; margin-bottom:14px; display:block; }
+    .fb p { font-size:14px; line-height:1.72; max-width:260px; }
+    .fc h5 { font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-bottom:18px; }
+    .fc ul { list-style:none; display:flex; flex-direction:column; gap:12px; }
+    .fc a  { color:var(--muted); text-decoration:none; font-size:14px; transition:color .2s; }
+    .fc a:hover { color:var(--white); }
+    .footer-btm { padding-top:26px; display:flex; justify-content:space-between; align-items:center; }
+    .footer-btm p { font-size:13px; color:var(--muted); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+    .a1{animation:fadeUp .9s cubic-bezier(.16,1,.3,1) .05s both}
+    .a2{animation:fadeUp .9s cubic-bezier(.16,1,.3,1) .18s both}
+    .a3{animation:fadeUp .9s cubic-bezier(.16,1,.3,1) .30s both}
+    .a4{animation:fadeUp .9s cubic-bezier(.16,1,.3,1) .44s both}
+    .a5{animation:fadeUp .9s cubic-bezier(.16,1,.3,1) .58s both}
+
+    /* RESPONSIVE */
+    @media(max-width:1100px){
+      .nav{padding:0 40px} .wrap{padding:0 40px}
+      .hero-inner{grid-template-columns:1fr} .hero-orbital{display:none}
+      .approach-header,.corp-header,.uni-grid,.sub-inner,.eir-header{grid-template-columns:1fr;gap:40px}
+      .approach-steps,.corp-phases,.fund-timeline{grid-template-columns:1fr 1fr}
+      .step:nth-child(2){border-right:none}
+      .step:nth-child(3){border-top:1px solid var(--border)}
+      .ft-arrow,.c-arrow{display:none}
+      .c-phase,.ft-stage{border-radius:0;border-top:none}
+      .c-phase:first-child,.ft-stage:first-child{border-radius:12px 12px 0 0;border-top:1px solid var(--border)}
+      .c-phase:last-child,.ft-stage:last-child{border-radius:0 0 12px 12px}
+      .members-grid{grid-template-columns:1fr 1fr}
+      .portfolio-grid{grid-template-columns:1fr 1fr}
+      .stats-row{grid-template-columns:1fr 1fr}
+      .s-cell:nth-child(2){border-right:none}
+      .s-cell:nth-child(3){border-top:1px solid var(--border)}
+      .team-grid{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+      .fund-timeline{grid-template-columns:1fr}
+    }
+    @media(max-width:640px){
+      .nav{padding:0 20px} .nav-links{display:none} .wrap{padding:0 20px}
+      section{padding:64px 0!important}
+      .approach-steps{grid-template-columns:1fr;border-radius:0}
+      .step{border-right:none;border-bottom:1px solid var(--border)}
+      .step:last-child{border-bottom:none}
+      .members-grid{grid-template-columns:1fr}
+      .portfolio-grid{grid-template-columns:1fr 1fr}
+      .stats-row{grid-template-columns:1fr}
+      .s-cell{border-right:none;border-bottom:1px solid var(--border)}
+      .sub-row{flex-direction:column}
+      .tcard{padding:32px 24px}
+      .footer-grid{grid-template-columns:1fr;gap:28px}
+      .footer-btm{flex-direction:column;gap:8px;text-align:center}
+      footer{padding:44px 0 28px}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#" class="logo">
+    <img src="Moonshots.png" alt="Moonshots" />
+  </a>
+  <ul class="nav-links">
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="#eir">EIR Club</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#subscribe" class="nav-cta">Stay in Touch</a></li>
+  </ul>
+</nav>
+
+<!-- ① HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-inner wrap">
+    <div>
+      <div class="hero-badge a1"><span class="hero-pulse"></span>Deep-Tech Venture Studio</div>
+      <h1 class="hero-h1 a2">Where Breakthroughs<br>Become <em>Companies.</em></h1>
+      <p class="hero-sub a3">We find the world's most important technologies in university labs and build fundable companies around them — pairing breakthrough IP with proven operators and the capital to scale.</p>
+      <div class="hero-actions a4">
+        <a href="#approach" class="btn btn-coral">Our Approach</a>
+        <a href="#eir" class="btn btn-ghost">Join EIR Club</a>
+      </div>
+    </div>
+
+    <div class="hero-orbital a5">
+      <svg width="100%" viewBox="0 0 460 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="230" cy="230" r="80"  fill="rgba(224,92,58,0.04)"/>
+        <circle cx="230" cy="230" r="50"  fill="rgba(224,92,58,0.06)"/>
+        <circle cx="230" cy="230" r="200" stroke="#2A2A2A" stroke-width="1" fill="none"/>
+        <circle cx="230" cy="230" r="140" stroke="#1E1E1E" stroke-width="1" stroke-dasharray="4 6" fill="none"/>
+        <circle cx="230" cy="230" r="88"  stroke="rgba(224,92,58,0.12)" stroke-width="1" fill="none"/>
+        <g class="oa">
+          <circle cx="230" cy="30" r="8" fill="#F4EFE9" opacity="0.88">
+            <animate attributeName="r" values="8;9.5;8" dur="3s" repeatCount="indefinite"/>
+          </circle>
+        </g>
+        <g class="ob">
+          <circle cx="230" cy="90" r="5" fill="#E05C3A" opacity="0.82">
+            <animate attributeName="opacity" values="0.82;0.45;0.82" dur="4s" repeatCount="indefinite"/>
+          </circle>
+        </g>
+        <g class="oc">
+          <circle cx="230" cy="142" r="3.5" fill="#F4EFE9" opacity="0.28"/>
+        </g>
+        <circle cx="230" cy="230" r="28" fill="#0c0c0c" stroke="rgba(224,92,58,0.28)" stroke-width="1"/>
+        <circle cx="230" cy="230" r="14" fill="#E05C3A" opacity="0.88">
+          <animate attributeName="r" values="14;16;14" dur="2.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.88;0.65;0.88" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <line x1="230" y1="16"  x2="230" y2="46"  stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        <line x1="230" y1="414" x2="230" y2="444" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        <line x1="16"  y1="230" x2="46"  y2="230" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        <line x1="414" y1="230" x2="444" y2="230" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ② APPROACH -->
+<section id="approach">
+  <div class="wrap">
+    <div class="approach-header">
+      <div>
+        <span class="label">Our Approach</span>
+        <h2>A Studio Built<br>for <em>Deep Tech</em></h2>
+      </div>
+      <p>We start with validated science, not ideas searching for teams. Four moves, executed in sequence, every time.</p>
+    </div>
+    <div class="approach-steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">Source IP</div>
+        <p>We work with university research labs to find patent-protected technologies with real commercial potential, before anyone else gets there.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">Match CEO</div>
+        <p>We recruit second-time founders from our EIR Club and pair them to IP that fits their domain expertise. Operators who've done it before, not first-timers.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">Fund</div>
+        <p>We organize pre-seed capital fast through our EIR co-investor network, strategic angels, and family offices. Weeks, not months.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-title">Scale</div>
+        <p>We bring corporate partners in from day one as pilot customers and co-investors, so the exit relationship is built in from the start.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ③ UNIVERSITY -->
+<section id="universities">
+  <div class="wrap">
+    <span class="label">University Partnerships</span>
+    <h2>Research Ready<br>to <em>Move</em></h2>
+    <div class="uni-grid">
+
+      <div>
+        <p class="uni-lede">Universities generate some of the world's most consequential scientific breakthroughs. Most never reach the people who could benefit from them — not because the science isn't ready, but because the bridge to market doesn't exist.</p>
+        <p class="uni-lede" style="margin-bottom:0;">Moonshots is that bridge. We work directly with tech transfer offices, identify IP with real commercial potential, and take responsibility for building the company around it.</p>
+
+        <div class="partner-badge">
+          <div class="p-dot"></div>
+          <div>
+            <div class="p-text">Launch Partner</div>
+            <div class="p-sub">University of Waterloo</div>
+          </div>
+        </div>
+
+        <div class="waterloo-logo">
+          <img src="Waterloo.png" alt="University of Waterloo" />
+        </div>
+      </div>
+
+      <div class="uni-blocks">
+        <div class="u-block">
+          <span class="u-block-icon">🔍</span>
+          <div>
+            <h4>What We Look For</h4>
+            <p>Patent-protected IP that gives the resulting company an exclusive market position that incumbents cannot replicate quickly.</p>
+          </div>
+        </div>
+        <div class="u-block">
+          <span class="u-block-icon">⚡</span>
+          <div>
+            <h4>Sectors We Focus On</h4>
+            <p>Materials science, biomedical devices, industrial AI, clean energy systems, advanced sensors, and infrastructure technology.</p>
+          </div>
+        </div>
+        <div class="u-block">
+          <span class="u-block-icon">🛡️</span>
+          <div>
+            <h4>Risk-Free for Researchers</h4>
+            <p>IP is only transferred once a company is successfully funded. If the venture doesn't raise, IP reverts to the researcher with no strings attached.</p>
+          </div>
+        </div>
+        <div class="u-block">
+          <span class="u-block-icon">📈</span>
+          <div>
+            <h4>Ongoing Relationship</h4>
+            <p>Researchers become technical advisors in the resulting company, staying involved in commercialization while we handle operations and go-to-market.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ④ EIR -->
+<section id="eir">
+  <div class="wrap">
+    <div class="eir-header">
+      <div>
+        <span class="label">EIR Club</span>
+        <h2>Operators Who've<br><em>Done It Before</em></h2>
+      </div>
+      <div class="eir-header-right">
+        <p>An invite-only network of second-time founders who've built, scaled, and exited. They co-invest, advise, and take on CEO roles in Moonshots portfolio companies.</p>
+        <a href="#subscribe" class="btn btn-ghost" style="font-size:11px;padding:11px 22px;">Request Access</a>
+      </div>
+    </div>
+
+    <div class="members-grid">
+
+      <div class="mcard">
+        <div class="m-avatar-placeholder">FR</div>
+        <div class="m-name">Fabian Raso</div>
+        <span class="m-exit">Hangry &rarr; Transact</span>
+        <p class="m-desc">Raised $1M seed. Scaled university pre-order platform. 8-figure acquisition.</p>
+      </div>
+
+      <div class="mcard">
+        <div class="m-avatar-placeholder">SD</div>
+        <div class="m-name">Steve Desjarlais</div>
+        <span class="m-exit">Heyday &rarr; Hootsuite</span>
+        <p class="m-desc">Raised $2M seed. $2M ARR. Scaled to 80 people. Acquired for $60M.</p>
+      </div>
+
+      <div class="mcard">
+        <div class="m-avatar-placeholder">HB</div>
+        <div class="m-name">Hugo Brizard</div>
+        <span class="m-exit">K-Ops &rarr; Stack Construction</span>
+        <p class="m-desc">Raised $500K pre-seed. Built corporate-partnered product. 8-figure acquisition.</p>
+      </div>
+
+      <div class="mcard">
+        <div class="m-avatar-placeholder">SZ</div>
+        <div class="m-name">Sahil Zaman</div>
+        <span class="m-exit">ClosingFolders &rarr; iManage</span>
+        <p class="m-desc">Bootstrapped legal tech product. Sold to leading data room provider. 8-figure exit.</p>
+      </div>
+
+    </div>
+
+    <div class="eir-footer">
+      <p class="eir-count">Showing 4 of <strong>200+</strong> members in the EIR Club network.</p>
+      <a href="#subscribe" class="btn btn-ghost" style="font-size:11px;padding:10px 22px;">See All Members</a>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ FUND -->
+<section id="fund">
+  <div class="wrap">
+    <span class="label">Fund &amp; Capital</span>
+    <h2>Capital Designed for<br><em>Deep-Tech Timelines</em></h2>
+    <p class="fund-lede">Deep tech takes longer to commercialize than SaaS — but the defensibility is exponentially higher. We structure capital to match those realities: moving fast early and building the right long-term relationships for the journey to exit.</p>
+
+    <div class="fund-timeline">
+      <div class="ft-stage">
+        <div class="ft-dot">1</div>
+        <span class="ft-label">Pre-Seed</span>
+        <div class="ft-title">Party Round</div>
+        <p class="ft-desc">Organized fast through our EIR co-investors, university alumni, and strategic angels. We close rounds in weeks, not quarters.</p>
+        <span class="ft-pill">$250K &ndash; $750K</span>
+      </div>
+      <div class="ft-arrow">&rarr;</div>
+      <div class="ft-stage">
+        <div class="ft-dot">2</div>
+        <span class="ft-label">Seed</span>
+        <div class="ft-title">Strategic Raise</div>
+        <p class="ft-desc">Angels, family offices, and corporate CVCs with direct relevance to each company's market and a natural path to exit.</p>
+        <span class="ft-pill">$1M &ndash; $3M</span>
+      </div>
+      <div class="ft-arrow">&rarr;</div>
+      <div class="ft-stage">
+        <div class="ft-dot">3</div>
+        <span class="ft-label">Growth &amp; Exit</span>
+        <div class="ft-title">Corporate or CSE</div>
+        <p class="ft-desc">A pre-built corporate relationship becomes the natural exit through acquisition, licensing, or CSE listing. 3 to 6 year horizon, defined from day one.</p>
+        <span class="ft-pill">Exit: 3&ndash;6 Years</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ CORPORATE -->
+<section id="corporate">
+  <div class="wrap">
+    <div class="corp-header">
+      <div>
+        <span class="label">Corporate Alliances</span>
+        <h2>Corporates Aren't<br>the End. <em>They're the Start.</em></h2>
+      </div>
+      <p>Most startups meet their corporate acquirer at the finish line. We introduce ours at the beginning — turning strategic partners into early customers, co-investors, and ultimately acquirers. The exit relationship is built in from formation.</p>
+    </div>
+
+    <div class="corp-phases">
+      <div class="c-phase">
+        <div class="c-num">01</div>
+        <span class="c-tag">Phase One</span>
+        <div class="c-title">Pilot Customer</div>
+        <p>We engage target corporates as early customers. Their domain expertise shapes the product and their buy-in de-risks the next funding round.</p>
+      </div>
+      <div class="c-arrow">&rarr;</div>
+      <div class="c-phase">
+        <div class="c-num">02</div>
+        <span class="c-tag">Phase Two</span>
+        <div class="c-title">Co-Investor</div>
+        <p>As traction builds, corporate partners invest alongside our EIR Club — adding strategic weight to the cap table and signaling conviction to the market.</p>
+      </div>
+      <div class="c-arrow">&rarr;</div>
+      <div class="c-phase">
+        <div class="c-num">03</div>
+        <span class="c-tag">Phase Three</span>
+        <div class="c-title">Acquirer</div>
+        <p>With first right of refusal negotiated from formation, corporates have a clear path to full acquisition — and our companies have a well-defined exit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑦ PORTFOLIO -->
+<section id="portfolio">
+  <div class="wrap">
+    <div class="portfolio-header">
+      <div>
+        <span class="label">Portfolio</span>
+        <h2>Companies We've<br><em>Built</em></h2>
+      </div>
+      <p style="max-width:360px; font-size:15px;">A growing portfolio of deep-tech companies spun out of university research, led by proven operators.</p>
+    </div>
+    <div class="portfolio-grid">
+      <div class="p-card">
+        <img src="Portfolio_Crynostics.png" alt="Crynostics" />
+      </div>
+      <div class="p-card">
+        <img src="Portfolio_innovitesse.png" alt="Innovitesse" style="filter:brightness(1);" />
+      </div>
+      <div class="p-card">
+        <img src="Portfolio_subscribepod.png" alt="SubscribePod" />
+      </div>
+      <div class="p-card">
+        <img src="Portfolio_torofort.png" alt="Torofort" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑧ ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <span class="label">About Moonshots</span>
+    <h2 style="margin-bottom:36px;">Built on a<br><em>Simple Premise.</em></h2>
+    <div class="about-inner">
+      <p>The most consequential technologies of the next decade are already invented. They're sitting in university labs, protected by patents, validated by years of rigorous research. What they lack isn't science. It's operators, capital, and the commercial infrastructure to reach the world.</p>
+      <p>Moonshots was built to be exactly that infrastructure. We're a deep-tech venture studio: part company builder, part investor, part talent network. We take research from lab to market by providing everything a great technology needs.</p>
+      <p>We're headquartered in Canada, partnered with the University of Waterloo, and building a portfolio of companies positioned to be acquired by the world's largest industrial and technology corporations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ⑨ STATS -->
+<section id="stats">
+  <div class="stats-row">
+    <div class="s-cell"><span class="s-n">$100M+</span><span class="s-l">Capital Raised</span></div>
+    <div class="s-cell"><span class="s-n">$300M+</span><span class="s-l">Portfolio Exits</span></div>
+    <div class="s-cell"><span class="s-n">200+</span><span class="s-l">Founder Network</span></div>
+    <div class="s-cell"><span class="s-n">3</span><span class="s-l">Prior Tech Transfers</span></div>
+  </div>
+</section>
+
+<!-- ⑩ TEAM -->
+<section id="team">
+  <div class="wrap">
+    <div class="team-hd">
+      <span class="label">The Team</span>
+      <h2>Operators, Investors,<br><em>Ecosystem Builders</em></h2>
+    </div>
+    <div class="team-grid">
+      <div class="tcard">
+        <div class="t-avatar">MJ</div>
+        <div class="t-name">Marco Janeczek</div>
+        <span class="t-role">Co-Founder</span>
+        <ul class="t-points">
+          <li>Investment Professional, L-SPARK (Wesley Clover)</li>
+          <li>Founder, Infinite Ventures — 12+ portfolio companies</li>
+          <li>Investment Professional, H-FARM (Italy)</li>
+          <li>Head of Corporate Development, Tough Commerce (YC)</li>
+          <li>3 prior university tech transfers: Neurovine, Crynostics, Enurgen</li>
+          <li>$60M raised and $300M in exits as operator</li>
+        </ul>
+        <div class="t-tags">
+          <span class="t-tag">L-SPARK</span>
+          <span class="t-tag">Infinite Ventures</span>
+          <span class="t-tag">H-FARM</span>
+          <span class="t-tag">YC</span>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="t-avatar">JL</div>
+        <div class="t-name">Jordan Latourelle</div>
+        <span class="t-role">Co-Founder</span>
+        <ul class="t-points">
+          <li>Founder and CEO, Tough Commerce (Y Combinator W21)</li>
+          <li>$10M+ raised and $10M+ revenue at Tough Commerce</li>
+          <li>Founder, StrongForce Homes</li>
+          <li>Angel investor in multiple YC portfolio companies</li>
+          <li>Direct access to the Y Combinator founder network</li>
+          <li>Deep relationships across US and Canadian venture ecosystems</li>
+        </ul>
+        <div class="t-tags">
+          <span class="t-tag">Y Combinator</span>
+          <span class="t-tag">Tough Commerce</span>
+          <span class="t-tag">StrongForce</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑪ SUBSCRIBE -->
+<section id="subscribe">
+  <div class="wrap">
+    <div class="sub-inner">
+      <div>
+        <span class="label">Stay in the Loop</span>
+        <h2>Get Moonshots<br><em>Updates</em></h2>
+        <p class="sub-lede">New portfolio companies, EIR Club openings, co-investment opportunities, and studio news. No spam.</p>
+      </div>
+      <div class="sub-form">
+        <div class="sub-row">
+          <input class="sub-input" type="email" id="subEmail" placeholder="your@email.com" />
+          <button class="sub-btn" onclick="doSubscribe()">Subscribe</button>
+        </div>
+        <p class="sub-note">Occasional updates only. Unsubscribe any time.</p>
+        <div class="sub-ok" id="subOk">
+          <span>&#10003;</span>
+          <span>You're in. We'll be in touch when there's something worth sharing.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="fb">
+        <img src="Moonshots.png" alt="Moonshots" />
+        <p>A deep-tech venture studio turning university research into funded, scalable companies. Launch partner: University of Waterloo.</p>
+      </div>
+      <div class="fc">
+        <h5>Studio</h5>
+        <ul>
+          <li><a href="#approach">Our Approach</a></li>
+          <li><a href="#universities">University Partners</a></li>
+          <li><a href="#fund">Fund &amp; Terms</a></li>
+          <li><a href="#corporate">Corporate Alliances</a></li>
+        </ul>
+      </div>
+      <div class="fc">
+        <h5>Community</h5>
+        <ul>
+          <li><a href="#eir">EIR Club</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#subscribe">Newsletter</a></li>
+        </ul>
+      </div>
+      <div class="fc">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:marco@moonshots.ca">marco@moonshots.ca</a></li>
+          <li><a href="mailto:jordan@moonshots.ca">jordan@moonshots.ca</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-btm">
+      <p>&copy; 2026 Moonshots Venture Studio. All rights reserved.</p>
+      <p>Confidential &middot; Not for distribution</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function doSubscribe() {
+    const el = document.getElementById('subEmail');
+    if (!el.value.trim() || !el.value.includes('@')) {
+      el.style.borderColor = '#E05C3A';
+      setTimeout(() => el.style.borderColor = '', 1600);
+      return;
+    }
+    document.querySelector('.sub-row').style.display = 'none';
+    document.querySelector('.sub-note').style.display = 'none';
+    document.getElementById('subOk').classList.add('show');
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+
+</body>
+</html>
