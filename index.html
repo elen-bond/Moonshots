@@ -348,16 +348,29 @@
       background:var(--surface); border:1px solid var(--border);
       aspect-ratio:1; display:flex; align-items:center; justify-content:center;
       padding:32px; transition:background .3s, border-color .3s;
+      text-decoration:none;
     }
+    .p-card-link { cursor:pointer; }
+    .p-card-static { cursor:default; }
     .p-card:hover { background:#161616; border-color:var(--blight); }
     .p-card img { width:100%; height:100%; object-fit:contain; filter:brightness(.85); transition:filter .3s; }
-    .p-card:hover img { filter:brightness(1); }
+    .p-card-link:hover img { filter:brightness(1); }
+
+    @media(max-width:640px){
+      .portfolio-grid { grid-template-columns:1fr 1fr; gap:8px; }
+      .p-card { padding:20px; aspect-ratio:4/3; }
+    }
+    @media(max-width:380px){
+      .portfolio-grid { grid-template-columns:1fr; }
+      .p-card { aspect-ratio:16/9; }
+    }
 
     /* ── ABOUT ── */
     #about { padding:100px 0; border-top:1px solid var(--border); background:var(--black); }
     .about-inner { max-width:720px; }
     .about-inner p { font-size:17px; line-height:1.82; margin-bottom:18px; }
     .about-inner p:last-child { margin-bottom:0; }
+    #about .label, #about h2 { display:block; }
 
     /* ── STATS ── */
     #stats { border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
@@ -597,6 +610,11 @@
       .t-name { font-size:28px; }
       .t-bio { font-size:14px; }
 
+      /* About */
+      #about .wrap { padding:0 20px; }
+      .about-inner { max-width:100%; }
+      .about-inner p { font-size:15px; }
+
       /* Subscribe */
       .sub-row { flex-direction:column; }
       .sub-btn { width:100%; justify-content:center; }
@@ -730,7 +748,7 @@
           <div class="step-emblem-el"><img src="Moonshots_Emblem.png" alt="" /></div>
         </div>
         <div class="step-title">Fund</div>
-        <p>We organize pre-seed capital fast through our EIR co-investor network, strategic angels, and family offices. Weeks, not months.</p>
+        <p>We organize pre-seed capital fast through our EIR co-investor network, strategic angels, and family offices.</p>
       </div>
       <div class="step">
         <div class="step-icon">
@@ -738,7 +756,7 @@
           <div class="step-emblem-el"><img src="Moonshots_Emblem.png" alt="" /></div>
         </div>
         <div class="step-title">Scale</div>
-        <p>We bring corporate partners in from day one as pilot customers and co-investors, so the exit relationship is built in from the start.</p>
+        <p>Build corporate strategic alliances from day one to accelerate distribution, investment, and exit.</p>
       </div>
     </div>
   </div>
@@ -808,7 +826,7 @@
       </div>
       <div class="eir-header-right">
         <p>An invite-only network of second-time founders who've built, scaled, and exited. They co-invest, advise, and take on CEO roles in Moonshots portfolio companies.</p>
-        <a href="#subscribe" class="btn btn-ghost" style="font-size:11px;padding:11px 22px;">Request Access</a>
+        <a href="#subscribe" class="btn btn-ghost" style="font-size:11px;padding:11px 22px;">Apply to Join</a>
       </div>
     </div>
 
@@ -832,7 +850,7 @@
         <div class="m-body">
           <div class="m-name">Steve Desjarlais</div>
           <span class="m-exit">Heyday &rarr; Hootsuite</span>
-          <p class="m-desc">Raised $2M seed. $2M ARR. Scaled to 80 people. Acquired for $60M.</p>
+          <p class="m-desc">Raised $2M seed. Scaled to 80 people. Acquired for $60M.</p>
         </div>
       </div>
 
@@ -893,7 +911,7 @@
         <span class="ft-label">Seed</span>
         <div class="ft-title">Strategic Raise</div>
         <p class="ft-desc">Angels, family offices, and corporate CVCs with direct relevance to each company's market and a natural path to exit.</p>
-        <span class="ft-pill">$1M &ndash; $3M</span>
+        <span class="ft-pill">$1M &ndash; $3M+</span>
       </div>
       <div class="ft-card">
         <div class="ft-icon">
@@ -902,7 +920,7 @@
         </div>
         <span class="ft-label">Growth &amp; Exit</span>
         <div class="ft-title">Corporate or CSE</div>
-        <p class="ft-desc">A pre-built corporate relationship becomes the natural exit through acquisition, licensing, or CSE listing. 3 to 6 year horizon, defined from formation.</p>
+        <p class="ft-desc">Corporate partners accelerate distribution and investment, and often become the natural acquirer — through acquisition, licensing, or a CSE listing.</p>
         <span class="ft-pill">3 &ndash; 6 Years</span>
       </div>
     </div>
@@ -939,7 +957,7 @@
         <div class="c-num">03</div>
         <span class="c-tag">Phase Three</span>
         <div class="c-title">Acquirer</div>
-        <p>With first right of refusal negotiated from formation, corporates have a clear path to full acquisition — and our companies have a well-defined exit.</p>
+        <p>We build the corporate relationship so deeply from the start that acquisition becomes the natural next step — a well-paved path rather than a cold approach.</p>
       </div>
     </div>
   </div>
@@ -956,10 +974,10 @@
       <p style="max-width:360px; font-size:15px;">A growing portfolio of deep-tech companies spun out of university research, led by proven operators.</p>
     </div>
     <div class="portfolio-grid">
-      <div class="p-card"><img src="Portfolio_Crynostics.png" alt="Crynostics" /></div>
-      <div class="p-card"><img src="Portfolio_innovitesse.png" alt="Innovitesse" style="filter:brightness(1);" /></div>
-      <div class="p-card"><img src="Portfolio_subscribepod.png" alt="SubscribePod" /></div>
-      <div class="p-card"><img src="Portfolio_torofort.png" alt="Torofort" /></div>
+      <a class="p-card p-card-link" href="https://www.crynostics.com/" target="_blank" rel="noopener"><img src="Portfolio_Crynostics.png" alt="Crynostics" /></a>
+      <div class="p-card p-card-static"><img src="Portfolio_innovitesse.png" alt="Innovitesse" style="filter:brightness(1);" /></div>
+      <a class="p-card p-card-link" href="http://subscribepod.com/" target="_blank" rel="noopener"><img src="Portfolio_subscribepod.png" alt="SubscribePod" /></a>
+      <div class="p-card p-card-static"><img src="Portfolio_torofort.png" alt="Torofort" /></div>
     </div>
   </div>
 </section>
@@ -1007,6 +1025,7 @@
             <span class="t-tag">L-SPARK</span>
             <span class="t-tag">Infinite Ventures</span>
             <span class="t-tag">H-FARM</span>
+            <span class="t-tag">Tough Commerce</span>
           </div>
         </div>
       </div>
@@ -1023,6 +1042,7 @@
             <span class="t-tag">Y Combinator</span>
             <span class="t-tag">Tough Commerce</span>
             <span class="t-tag">StrongForce</span>
+            <span class="t-tag">L-SPARK</span>
           </div>
         </div>
       </div>
@@ -1048,7 +1068,7 @@
         <p class="sub-note">Occasional updates only. Unsubscribe any time.</p>
         <div class="sub-ok" id="subOk">
           <span>&#10003;</span>
-          <span>You're in. We'll be in touch when there's something worth sharing.</span>
+          <span>You're on the list. We'll be in touch.</span>
         </div>
       </div>
     </div>
@@ -1092,7 +1112,7 @@
       </div>
     </div>
     <div class="footer-btm">
-      <p>&copy; 2026 Moonshots Venture Studio. All rights reserved.</p>
+      <p>&copy; 2026 Moonshots Studio Inc. All rights reserved.</p>
     </div>
   </div>
 </footer>
