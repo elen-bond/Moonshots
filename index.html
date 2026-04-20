@@ -228,10 +228,57 @@
     .eir-header { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:end; margin-bottom:52px; }
     .eir-header-right p { font-size:16px; line-height:1.75; margin-bottom:24px; }
 
-    .members-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-bottom:24px; }
+    /* EIR Carousel */
+    .eir-carousel-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .eir-carousel {
+      overflow: hidden;
+      flex: 1;
+    }
+    .members-grid {
+      display: flex;
+      gap: 2px;
+      transition: transform .4s cubic-bezier(.16,1,.3,1);
+      will-change: transform;
+    }
     .mcard {
-      background:var(--surface); padding:0;
-      transition:background .25s; position:relative; overflow:hidden; cursor:default;
+      flex: 0 0 calc(25% - 2px);
+      min-width: 200px;
+      background: var(--surface);
+      padding: 0;
+      transition: background .25s;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .eir-arrow {
+      flex-shrink: 0;
+      width: 44px; height: 44px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color .2s, border-color .2s, background .2s;
+      z-index: 2;
+    }
+    .eir-arrow:hover { color: var(--white); border-color: var(--blight); background: var(--srf2); }
+    .eir-arrow:disabled { opacity: 0.25; cursor: default; }
+    .eir-arrow-left  { margin-right: 12px; }
+    .eir-arrow-right { margin-left: 12px; }
+
+    @media(max-width:1100px){
+      .mcard { flex: 0 0 calc(50% - 2px); }
+    }
+    @media(max-width:640px){
+      .mcard { flex: 0 0 calc(100%); }
+      .eir-arrow { width: 36px; height: 36px; }
     }
     .mcard::after {
       content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
@@ -818,7 +865,7 @@
   </a>
   <ul class="nav-links">
     <li><a href="#approach">Approach</a></li>
-    <li><a href="#eir">EIR Club</a></li>
+    <li><a href="eir.html">EIR Club</a></li>
     <li><a href="#portfolio">Portfolio</a></li>
     <li><a href="#team">Team</a></li>
     <li><a href="mailto:contact@moonshots.ca" class="nav-cta">Contact Us</a></li>
@@ -833,7 +880,7 @@
 <div class="mobile-drawer" id="mobileDrawer">
   <a href="#approach"     onclick="closeMobileMenu()">Approach</a>
   <a href="#universities" onclick="closeMobileMenu()">University Partners</a>
-  <a href="#eir"          onclick="closeMobileMenu()">EIR Club</a>
+  <a href="eir.html"         onclick="closeMobileMenu()">EIR Club</a>
   <a href="#portfolio"    onclick="closeMobileMenu()">Portfolio</a>
   <a href="#team"         onclick="closeMobileMenu()">Team</a>
   <a href="mailto:contact@moonshots.ca" onclick="closeMobileMenu()" class="mobile-drawer-cta">Contact Us</a>
@@ -1000,17 +1047,28 @@
       </div>
     </div>
 
-    <!-- Loading skeletons -->
-    <div class="members-grid" id="eirGrid">
-      <div class="mcard mcard-skeleton"><div class="skeleton-photo"></div><div class="skeleton-body"><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div><div class="skeleton-line w80"></div></div></div>
-      <div class="mcard mcard-skeleton"><div class="skeleton-photo"></div><div class="skeleton-body"><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div><div class="skeleton-line w80"></div></div></div>
-      <div class="mcard mcard-skeleton"><div class="skeleton-photo"></div><div class="skeleton-body"><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div><div class="skeleton-line w80"></div></div></div>
-      <div class="mcard mcard-skeleton"><div class="skeleton-photo"></div><div class="skeleton-body"><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div><div class="skeleton-line w80"></div></div></div>
+    <!-- Carousel wrapper -->
+    <div class="eir-carousel-wrap">
+      <button class="eir-arrow eir-arrow-left" id="eirPrev" onclick="scrollEIR(-1)" aria-label="Previous">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="eir-carousel" id="eirCarousel">
+        <div class="members-grid" id="eirGrid">
+          <!-- Skeleton loaders -->
+          <div class="mcard mcard-skeleton"><div class="skeleton-photo"></div><div class="skeleton-body"><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div><div class="skeleton-line w80"></div></div></div>
+          <div class="mcard mcard-skeleton"><div class="skeleton-photo"></div><div class="skeleton-body"><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div><div class="skeleton-line w80"></div></div></div>
+          <div class="mcard mcard-skeleton"><div class="skeleton-photo"></div><div class="skeleton-body"><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div><div class="skeleton-line w80"></div></div></div>
+          <div class="mcard mcard-skeleton"><div class="skeleton-photo"></div><div class="skeleton-body"><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div><div class="skeleton-line w80"></div></div></div>
+        </div>
+      </div>
+      <button class="eir-arrow eir-arrow-right" id="eirNext" onclick="scrollEIR(1)" aria-label="Next">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </div>
 
     <div class="eir-footer">
       <p class="eir-count" id="eirCount">Loading members...</p>
-      <a href="mailto:contact@moonshots.ca" class="btn btn-ghost" style="font-size:11px;padding:10px 22px;">More Members</a>
+      <a href="eir.html" class="btn btn-ghost" style="font-size:11px;padding:10px 22px;">More Members</a>
     </div>
   </div>
 </section>
@@ -1269,6 +1327,27 @@
   }
 
   // ─────────────────────────────────────────────
+  // EIR CAROUSEL STATE
+  // ─────────────────────────────────────────────
+  let eirStep = 0;
+  let eirTotal = 0;
+  const EIR_VISIBLE = () => window.innerWidth <= 640 ? 1 : window.innerWidth <= 1100 ? 2 : 4;
+
+  function scrollEIR(dir) {
+    const visible = EIR_VISIBLE();
+    const maxStep = Math.max(0, eirTotal - visible);
+    eirStep = Math.min(Math.max(eirStep + dir, 0), maxStep);
+    const grid = document.getElementById('eirGrid');
+    const cardW = grid.children[0]?.offsetWidth || 0;
+    const gap = 2;
+    grid.style.transform = `translateX(-${eirStep * (cardW + gap)}px)`;
+    document.getElementById('eirPrev').disabled = eirStep === 0;
+    document.getElementById('eirNext').disabled = eirStep >= maxStep;
+  }
+
+  window.addEventListener('resize', () => { eirStep = 0; scrollEIR(0); });
+
+  // ─────────────────────────────────────────────
   // RENDER EIR MEMBERS
   // Sheet columns: Name | Exit | Bio | Photo_URL | Active
   // ─────────────────────────────────────────────
@@ -1279,6 +1358,7 @@
       const rows = await fetchSheet('EIR');
       const active = rows.filter(r => r.Active?.toLowerCase() !== 'false' && r.Active?.toLowerCase() !== 'no');
       if (!active.length) { fallbackEIR(); return; }
+      eirTotal = active.length;
 
       grid.innerHTML = active.map(m => {
         const photo = m.Photo_URL ? driveThumb(m.Photo_URL) : null;
@@ -1296,7 +1376,8 @@
           </div>`;
       }).join('');
 
-      count.innerHTML = `Showing ${Math.min(active.length, 4)} of <strong>200+</strong> members in the EIR Club network.`;
+      count.innerHTML = `Showing ${Math.min(EIR_VISIBLE(), active.length)} of <strong>${active.length}</strong> members.`;
+      scrollEIR(0);
     } catch (e) {
       console.warn('EIR sheet load failed, using fallback:', e);
       fallbackEIR();
@@ -1315,7 +1396,9 @@
       <div class="mcard"><div class="m-photo"><img src="Steve_Desjarlais.jpeg" alt="Steve Desjarlais" /></div><div class="m-body"><div class="m-name">Steve Desjarlais</div><span class="m-exit">Heyday &rarr; Hootsuite</span><p class="m-desc">Raised $2M seed. Scaled to 80 people. Acquired for $60M.</p></div></div>
       <div class="mcard"><div class="m-photo"><img src="Hugo_Brizard.jpeg" alt="Hugo Brizard" /></div><div class="m-body"><div class="m-name">Hugo Brizard</div><span class="m-exit">K-Ops &rarr; Stack Construction</span><p class="m-desc">Raised $500K pre-seed. Built corporate-partnered product. 8-figure acquisition.</p></div></div>
       <div class="mcard"><div class="m-photo"><img src="Sahil_Zaman.jpeg" alt="Sahil Zaman" /></div><div class="m-body"><div class="m-name">Sahil Zaman</div><span class="m-exit">ClosingFolders &rarr; iManage</span><p class="m-desc">Bootstrapped legal tech product. Sold to leading data room provider. 8-figure exit.</p></div></div>`;
+    eirTotal = 4;
     count.innerHTML = `Showing 4 of <strong>200+</strong> members in the EIR Club network.`;
+    scrollEIR(0);
   }
 
   // ─────────────────────────────────────────────
@@ -1333,11 +1416,12 @@
 
       grid.innerHTML = portfolioData.map((c, i) => {
         const logo = c.Logo_URL ? driveThumb(c.Logo_URL, 300) : null;
-        const isInfra = !logo; // Show leaf icon if no logo
-
         const logoHTML = logo
           ? `<img src="${logo}" alt="${c.Company_Name}" style="width:80%;max-height:80px;object-fit:contain;margin-bottom:14px;" loading="lazy" />`
           : `<div style="margin-bottom:14px;">${leafSVG()}</div>`;
+
+        const status = c.Status || 'Active';
+        const hasLink = !!(c.Website || '').trim();
 
         return `
           <div class="p-card-dyn" onclick="openPortfolioModal(${i})">
@@ -1345,8 +1429,9 @@
             <div class="stealth-sector">${c.Sector || ''}</div>
             <div class="stealth-name" style="font-size:17px;margin-top:4px;">${c.Company_Name}</div>
             <div class="stealth-badge" style="margin-top:10px;">
-              <span class="stealth-dot"></span>${c.Status || 'Active'}
+              <span class="stealth-dot"></span>${status}
             </div>
+            ${hasLink ? `<div style="font-size:10px;color:var(--coral);margin-top:8px;letter-spacing:.06em;">↗ Visit site</div>` : ''}
           </div>`;
       }).join('');
     } catch (e) {
@@ -1365,7 +1450,7 @@
       Sector: 'Infrastructure',
       Description: 'Extends pavement service life via bio-inspired repair mechanisms. Micro-capsule technology enables autonomous crack sealing, dramatically reducing maintenance costs and road closure frequency for municipalities and highway operators. Spun out of the University of Waterloo.',
       Logo_URL: '',
-      Website_URL: '',
+      Website: '',
       Status: 'In Stealth',
       Active: 'true'
     }];
@@ -1390,8 +1475,8 @@
     document.getElementById('modalStatus').textContent  = c.Status || 'Active';
     document.getElementById('modalDesc').textContent    = c.Description || '';
     const link = document.getElementById('modalLink');
-    if (c.Website_URL) {
-      link.href = c.Website_URL;
+    if ((c.Website || '').trim()) {
+      link.href = c.Website.trim();
       link.style.display = 'inline-flex';
     } else {
       link.style.display = 'none';
