@@ -71,10 +71,6 @@
     .eir-stat-n { display:block; font-family:var(--display); font-size:52px; font-weight:500; color:var(--white); line-height:1; margin-bottom:6px; }
     .eir-stat-l { font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
 
-    /* GRID */
-    #eir-page { padding:80px 0 100px; }
-    .eir-full-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; }
-
     /* CARD */
     .mcard { background:var(--surface); position:relative; overflow:hidden; cursor:default; transition:background .25s; }
     .mcard::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:var(--coral); transform:scaleX(0); transform-origin:left; transition:transform .4s; }
@@ -128,6 +124,10 @@
     .footer-btm p { font-size:13px; color:var(--muted); }
     .footer-canada { font-size:13px; color:var(--muted); }
 
+    /* GRID */
+    #eir-page { padding:80px 0 100px; }
+    .eir-full-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; }
+
     /* RESPONSIVE */
     @media(max-width:1100px){
       .nav{padding:0 40px} .wrap{padding:0 40px}
@@ -136,19 +136,59 @@
       .apply-inner{grid-template-columns:1fr;gap:40px}
       .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
     }
+
     @media(max-width:640px){
-      .nav{padding:0 20px;height:60px} .nav-links{display:none}
-      .logo{width:160px;height:34px} .logo img{width:160px;height:160px}
-      .nav-mobile-btn{display:flex} .wrap{padding:0 20px}
-      .eir-hero{padding:100px 0 48px}
-      .eir-stats{flex-direction:column}
-      .eir-stat{border-right:none;border-bottom:1px solid var(--border);padding:20px 0}
-      .eir-stat:last-child{border-bottom:none}
+      .nav{padding:0 20px;height:60px}
+      .nav-links{display:none}
+      .logo{width:160px;height:34px}
+      .logo img{width:160px;height:160px}
+      .nav-mobile-btn{display:flex}
+      .wrap{padding:0 20px}
+
+      /* Hero */
+      .eir-hero{padding:96px 0 48px}
+      .eir-hero-inner{grid-template-columns:1fr;gap:28px}
+      .eir-hero-right p{font-size:15px}
+
+      /* Stats — horizontal row on mobile, equal width, no overflow */
+      .eir-stats{
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        margin-top:40px;
+      }
+      .eir-stat{
+        padding:20px 12px;
+        border-right:1px solid var(--border);
+        border-bottom:none;
+        text-align:center;
+      }
+      .eir-stat:last-child{border-right:none}
+      .eir-stat:first-child{padding-left:12px}
+      .eir-stat-n{font-size:32px}
+      .eir-stat-l{font-size:9px;letter-spacing:.1em}
+
+      /* Grid */
+      #eir-page{padding:48px 0 64px}
       .eir-full-grid{grid-template-columns:1fr 1fr}
+
+      /* Apply band */
+      .apply-band{padding:56px 0}
+
+      /* Footer */
       .footer-grid{grid-template-columns:1fr;gap:28px}
       .footer-btm{flex-direction:column;gap:8px;text-align:center}
+      footer{padding:44px 0 28px}
+      .fb-logo-wrap{width:160px;height:34px}
+      .fb-logo-wrap img{width:160px;height:160px}
     }
-    @media(max-width:400px){ .eir-full-grid{grid-template-columns:1fr} }
+
+    @media(max-width:400px){
+      .eir-full-grid{grid-template-columns:1fr}
+      .eir-stats{grid-template-columns:1fr}
+      .eir-stat{border-right:none;border-bottom:1px solid var(--border)}
+      .eir-stat:last-child{border-bottom:none}
+      .eir-stat{text-align:left;padding:18px 0}
+    }
   </style>
 </head>
 <body>
@@ -182,7 +222,7 @@
     <div class="eir-hero-inner">
       <div>
         <span class="label">EIR Club</span>
-        <h1>Invite-only Network<br>of <em>Exited Founders</em></h1>
+        <h1>Network of<br><em>Exited Founders</em></h1>
       </div>
       <div class="eir-hero-right">
         <p>Our CEO pipeline: proven operators who've built, scaled, and exited a company — ready to lead the next deep-tech venture. Members co-invest, advise, and take on CEO roles in Moonshots portfolio companies.</p>
