@@ -342,27 +342,197 @@
 
     /* ── PORTFOLIO ── */
     #portfolio { padding:100px 0; background:var(--bg); border-top:1px solid var(--border); }
-    .portfolio-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:52px; }
-    .portfolio-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; }
-    .p-card {
-      background:var(--surface); border:1px solid var(--border);
-      aspect-ratio:1; display:flex; align-items:center; justify-content:center;
-      padding:32px; transition:background .3s, border-color .3s;
-      text-decoration:none;
+    .portfolio-header { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:end; margin-bottom:52px; }
+    .portfolio-header p { font-size:17px; line-height:1.75; }
+    /* Stealth card */
+    .p-card-stealth {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      max-width: 280px;
     }
-    .p-card-link { cursor:pointer; }
-    .p-card-static { cursor:default; }
-    .p-card:hover { background:#161616; border-color:var(--blight); }
-    .p-card img { width:100%; height:100%; object-fit:contain; filter:brightness(.85); transition:filter .3s; }
-    .p-card-link:hover img { filter:brightness(1); }
+    .stealth-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+    }
+    .stealth-icon { margin-bottom: 4px; }
+    .stealth-sector {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--coral);
+    }
+    .stealth-name {
+      font-family: var(--display);
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--white);
+      line-height: 1.2;
+    }
+    .stealth-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(224,92,58,.08);
+      border: 1px solid rgba(224,92,58,.22);
+      border-radius: 100px;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--coral);
+      letter-spacing: .06em;
+      margin-top: 4px;
+    }
+    .stealth-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--coral);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+
+    /* Dynamic portfolio grid */
+    .portfolio-dyn-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .p-card-dyn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      width: 240px;
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: background .3s, border-color .3s, transform .25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .p-card-dyn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--coral);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .35s;
+    }
+    .p-card-dyn:hover { background: #161616; border-color: var(--blight); transform: translateY(-3px); }
+    .p-card-dyn:hover::before { transform: scaleX(1); }
+
+    .p-card-dyn .stealth-badge { cursor: pointer; }
+
+    /* Skeleton */
+    .skeleton-p-card {
+      cursor: default;
+      background: linear-gradient(90deg, var(--surface) 25%, #1a1a1a 50%, var(--surface) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.6s infinite;
+    }
+    .skeleton-p-card:hover { transform: none; border-color: var(--border); }
+    .skeleton-p-card::before { display: none; }
+
+    /* EIR skeleton */
+    .mcard-skeleton { cursor: default; }
+    .mcard-skeleton:hover { background: var(--surface); }
+    .mcard-skeleton:hover::after { transform: scaleX(0); }
+    .mcard-skeleton:hover .m-name { color: var(--white); }
+    .skeleton-photo {
+      width: 100%;
+      aspect-ratio: 1/1.05;
+      background: linear-gradient(90deg, var(--surface) 25%, #1c1c1c 50%, var(--surface) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.6s infinite;
+    }
+    .skeleton-body { padding: 22px 22px 24px; display: flex; flex-direction: column; gap: 10px; }
+    .skeleton-line {
+      height: 12px; border-radius: 4px;
+      background: linear-gradient(90deg, var(--surface) 25%, #1c1c1c 50%, var(--surface) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.6s infinite;
+    }
+    .w40 { width: 40%; }
+    .w60 { width: 60%; }
+    .w80 { width: 80%; }
+
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Portfolio modal */
+    .p-modal-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+    }
+    .p-modal-overlay.open { opacity: 1; pointer-events: all; }
+    .p-modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px;
+      max-width: 520px;
+      width: 100%;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform .35s cubic-bezier(.16,1,.3,1);
+    }
+    .p-modal-overlay.open .p-modal { transform: translateY(0); }
+    .p-modal-close {
+      position: absolute; top: 18px; right: 18px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 50%; width: 34px; height: 34px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); cursor: pointer; font-size: 18px;
+      transition: color .2s;
+    }
+    .p-modal-close:hover { color: var(--white); }
+    .p-modal-sector {
+      font-size: 10px; font-weight: 700; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--coral); margin-bottom: 10px;
+    }
+    .p-modal-name {
+      font-family: var(--display);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 500; color: var(--white);
+      line-height: 1.1; margin-bottom: 16px;
+    }
+    .p-modal-status {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(224,92,58,.08); border: 1px solid rgba(224,92,58,.22);
+      border-radius: 100px; padding: 4px 12px;
+      font-size: 11px; font-weight: 700; color: var(--coral);
+      margin-bottom: 20px;
+    }
+    .p-modal-desc { font-size: 15px; line-height: 1.78; }
 
     @media(max-width:640px){
-      .portfolio-grid { grid-template-columns:1fr 1fr; gap:8px; }
-      .p-card { padding:20px; aspect-ratio:4/3; }
+      .portfolio-dyn-grid { gap: 12px; }
+      .p-card-dyn { width: calc(50% - 6px); min-height: 200px; padding: 20px 16px; }
+      .p-modal { padding: 32px 24px; }
     }
     @media(max-width:380px){
-      .portfolio-grid { grid-template-columns:1fr; }
-      .p-card { aspect-ratio:16/9; }
+      .p-card-dyn { width: 100%; }
     }
 
     /* ── ABOUT ── */
@@ -464,6 +634,7 @@
     .fc a:hover { color:var(--white); }
     .footer-btm { padding-top:26px; display:flex; justify-content:space-between; align-items:center; }
     .footer-btm p { font-size:13px; color:var(--muted); }
+    .footer-canada { font-size:13px; color:var(--muted); display:flex; align-items:center; gap:6px; }
 
     /* ANIMATIONS */
     @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
@@ -531,6 +702,7 @@
       .ft-card { border-right:none; border-bottom:1px solid var(--border); }
       .ft-card:last-child { border-bottom:none; }
       .corp-header { grid-template-columns:1fr; gap:28px; }
+      .portfolio-header { grid-template-columns:1fr; gap:16px; }
       .corp-phases { grid-template-columns:1fr; }
       .c-arrow { display:none; }
       .c-phase { border-radius:0; border-top:none; }
@@ -649,7 +821,7 @@
     <li><a href="#eir">EIR Club</a></li>
     <li><a href="#portfolio">Portfolio</a></li>
     <li><a href="#team">Team</a></li>
-    <li><a href="#subscribe" class="nav-cta">Stay in Touch</a></li>
+    <li><a href="mailto:contact@moonshots.ca" class="nav-cta">Contact Us</a></li>
   </ul>
   <!-- Mobile menu button -->
   <button class="nav-mobile-btn" onclick="toggleMobileMenu()" aria-label="Menu">
@@ -659,12 +831,12 @@
 
 <!-- Mobile menu drawer -->
 <div class="mobile-drawer" id="mobileDrawer">
-  <a href="#approach"   onclick="closeMobileMenu()">Approach</a>
+  <a href="#approach"     onclick="closeMobileMenu()">Approach</a>
   <a href="#universities" onclick="closeMobileMenu()">University Partners</a>
-  <a href="#eir"        onclick="closeMobileMenu()">EIR Club</a>
-  <a href="#portfolio"  onclick="closeMobileMenu()">Portfolio</a>
-  <a href="#team"       onclick="closeMobileMenu()">Team</a>
-  <a href="#subscribe"  onclick="closeMobileMenu()" class="mobile-drawer-cta">Stay in Touch</a>
+  <a href="#eir"          onclick="closeMobileMenu()">EIR Club</a>
+  <a href="#portfolio"    onclick="closeMobileMenu()">Portfolio</a>
+  <a href="#team"         onclick="closeMobileMenu()">Team</a>
+  <a href="mailto:contact@moonshots.ca" onclick="closeMobileMenu()" class="mobile-drawer-cta">Contact Us</a>
 </div>
 
 <!-- ① HERO -->
@@ -676,8 +848,7 @@
       <h1 class="hero-h1 a2">Where Breakthroughs<br>Become <em>Companies.</em></h1>
       <p class="hero-sub a3">We find the world's most important technologies in university labs and build fundable companies around them — pairing breakthrough IP with proven operators and the capital to scale.</p>
       <div class="hero-actions a4">
-        <a href="#universities" class="btn btn-coral">Partner with Us</a>
-        <a href="#eir" class="btn btn-white">Join EIR Club</a>
+        <a href="mailto:partners@moonshots.ca" class="btn btn-coral">Partner with Us</a>
       </div>
     </div>
 
@@ -778,7 +949,7 @@
             <img src="Waterloo.avif" alt="University of Waterloo" />
             <span class="waterloo-caption">Launch Partner</span>
           </div>
-          <a href="#subscribe" class="btn btn-coral waterloo-partner-btn" style="font-size:11px; padding:11px 22px;">Partner with Us</a>
+          <a href="mailto:partners@moonshots.ca" class="btn btn-coral waterloo-partner-btn" style="font-size:11px; padding:11px 22px;">Partner with Us</a>
         </div>
       </div>
 
@@ -826,61 +997,20 @@
       </div>
       <div class="eir-header-right">
         <p>An invite-only network of second-time founders who've built, scaled, and exited. They co-invest, advise, and take on CEO roles in Moonshots portfolio companies.</p>
-        <a href="#subscribe" class="btn btn-ghost" style="font-size:11px;padding:11px 22px;">Apply to Join</a>
       </div>
     </div>
 
-    <div class="members-grid">
-
-      <div class="mcard">
-        <div class="m-photo">
-          <img src="Fabian_Raso.jpeg" alt="Fabian Raso" />
-        </div>
-        <div class="m-body">
-          <div class="m-name">Fabian Raso</div>
-          <span class="m-exit">Hangry &rarr; Transact</span>
-          <p class="m-desc">Raised $1M seed. Scaled university pre-order platform. 8-figure acquisition.</p>
-        </div>
-      </div>
-
-      <div class="mcard">
-        <div class="m-photo">
-          <img src="Steve_Desjarlais.jpeg" alt="Steve Desjarlais" />
-        </div>
-        <div class="m-body">
-          <div class="m-name">Steve Desjarlais</div>
-          <span class="m-exit">Heyday &rarr; Hootsuite</span>
-          <p class="m-desc">Raised $2M seed. Scaled to 80 people. Acquired for $60M.</p>
-        </div>
-      </div>
-
-      <div class="mcard">
-        <div class="m-photo">
-          <img src="Hugo_Brizard.jpeg" alt="Hugo Brizard" />
-        </div>
-        <div class="m-body">
-          <div class="m-name">Hugo Brizard</div>
-          <span class="m-exit">K-Ops &rarr; Stack Construction</span>
-          <p class="m-desc">Raised $500K pre-seed. Built corporate-partnered product. 8-figure acquisition.</p>
-        </div>
-      </div>
-
-      <div class="mcard">
-        <div class="m-photo">
-          <img src="Sahil_Zaman.jpeg" alt="Sahil Zaman" />
-        </div>
-        <div class="m-body">
-          <div class="m-name">Sahil Zaman</div>
-          <span class="m-exit">ClosingFolders &rarr; iManage</span>
-          <p class="m-desc">Bootstrapped legal tech product. Sold to leading data room provider. 8-figure exit.</p>
-        </div>
-      </div>
-
+    <!-- Loading skeletons -->
+    <div class="members-grid" id="eirGrid">
+      <div class="mcard mcard-skeleton"><div class="skeleton-photo"></div><div class="skeleton-body"><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div><div class="skeleton-line w80"></div></div></div>
+      <div class="mcard mcard-skeleton"><div class="skeleton-photo"></div><div class="skeleton-body"><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div><div class="skeleton-line w80"></div></div></div>
+      <div class="mcard mcard-skeleton"><div class="skeleton-photo"></div><div class="skeleton-body"><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div><div class="skeleton-line w80"></div></div></div>
+      <div class="mcard mcard-skeleton"><div class="skeleton-photo"></div><div class="skeleton-body"><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div><div class="skeleton-line w80"></div></div></div>
     </div>
 
     <div class="eir-footer">
-      <p class="eir-count">Showing 4 of <strong>200+</strong> members in the EIR Club network.</p>
-      <a href="#subscribe" class="btn btn-ghost" style="font-size:11px;padding:10px 22px;">More Members</a>
+      <p class="eir-count" id="eirCount">Loading members...</p>
+      <a href="mailto:contact@moonshots.ca" class="btn btn-ghost" style="font-size:11px;padding:10px 22px;">More Members</a>
     </div>
   </div>
 </section>
@@ -911,7 +1041,7 @@
         <span class="ft-label">Seed</span>
         <div class="ft-title">Strategic Raise</div>
         <p class="ft-desc">Angels, family offices, and corporate CVCs with direct relevance to each company's market and a natural path to exit.</p>
-        <span class="ft-pill">$1M &ndash; $3M+</span>
+        <span class="ft-pill">$3M+</span>
       </div>
       <div class="ft-card">
         <div class="ft-icon">
@@ -969,18 +1099,28 @@
     <div class="portfolio-header">
       <div>
         <span class="label">Portfolio</span>
-        <h2>Companies We've<br><em>Built</em></h2>
+        <h2>Companies We're<br><em>Building</em></h2>
       </div>
-      <p style="max-width:360px; font-size:15px;">A growing portfolio of deep-tech companies spun out of university research, led by proven operators.</p>
+      <p>A growing portfolio of deep-tech companies spun out of university research, led by proven operators.</p>
     </div>
-    <div class="portfolio-grid">
-      <a class="p-card p-card-link" href="https://www.crynostics.com/" target="_blank" rel="noopener"><img src="Portfolio_Crynostics.png" alt="Crynostics" /></a>
-      <div class="p-card p-card-static"><img src="Portfolio_innovitesse.png" alt="Innovitesse" style="filter:brightness(1);" /></div>
-      <a class="p-card p-card-link" href="http://subscribepod.com/" target="_blank" rel="noopener"><img src="Portfolio_subscribepod.png" alt="SubscribePod" /></a>
-      <div class="p-card p-card-static"><img src="Portfolio_torofort.png" alt="Torofort" /></div>
+    <div id="portfolioGrid" class="portfolio-dyn-grid">
+      <!-- Skeleton loader -->
+      <div class="p-card-dyn skeleton-p-card"></div>
     </div>
   </div>
 </section>
+
+<!-- Portfolio modal -->
+<div class="p-modal-overlay" id="portfolioModal" onclick="closePortfolioModal(event)">
+  <div class="p-modal">
+    <button class="p-modal-close" onclick="closePortfolioModal()">&times;</button>
+    <div class="p-modal-sector" id="modalSector"></div>
+    <div class="p-modal-name" id="modalName"></div>
+    <div class="p-modal-status" id="modalStatus"></div>
+    <p class="p-modal-desc" id="modalDesc"></p>
+    <a class="p-modal-link btn btn-coral" id="modalLink" href="#" target="_blank" rel="noopener" style="display:none; margin-top:24px; font-size:12px;">Visit Website</a>
+  </div>
+</div>
 
 <!-- ⑧ ABOUT -->
 <section id="about">
@@ -1051,30 +1191,6 @@
   </div>
 </section>
 
-<!-- ⑪ SUBSCRIBE -->
-<section id="subscribe">
-  <div class="wrap">
-    <div class="sub-inner">
-      <div>
-        <span class="label">Stay in the Loop</span>
-        <h2>Get Moonshots<br><em>Updates</em></h2>
-        <p class="sub-lede">New portfolio companies, EIR Club openings, co-investment opportunities, and studio news. No spam.</p>
-      </div>
-      <div class="sub-form">
-        <div class="sub-row">
-          <input class="sub-input" type="email" id="subEmail" placeholder="your@email.com" />
-          <button class="sub-btn" onclick="doSubscribe()">Subscribe</button>
-        </div>
-        <p class="sub-note">Occasional updates only. Unsubscribe any time.</p>
-        <div class="sub-ok" id="subOk">
-          <span>&#10003;</span>
-          <span>You're on the list. We'll be in touch.</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- FOOTER -->
 <footer>
   <div class="wrap">
@@ -1100,24 +1216,203 @@
           <li><a href="#eir">EIR Club</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#team">Team</a></li>
-          <li><a href="#subscribe">Newsletter</a></li>
         </ul>
       </div>
       <div class="fc">
         <h5>Contact</h5>
         <ul>
-          <li><a href="mailto:marco@moonshots.ca">marco@moonshots.ca</a></li>
-          <li><a href="mailto:jordan@moonshots.ca">jordan@moonshots.ca</a></li>
+          <li><a href="mailto:contact@moonshots.ca">contact@moonshots.ca</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-btm">
       <p>&copy; 2026 Moonshots Studio Inc. All rights reserved.</p>
+      <p class="footer-canada">🇨🇦 Made in Canada</p>
     </div>
   </div>
 </footer>
 
 <script>
+  // ─────────────────────────────────────────────
+  // GOOGLE SHEETS CONFIG
+  // Replace YOUR_API_KEY_HERE with your actual API key
+  // ─────────────────────────────────────────────
+  const SHEETS_API_KEY   = 'AIzaSyDT6n_6JUmnm-cvNcgyVAn_qzaOX3C1E5s';
+  const SHEET_ID         = '1b19kPy0g2K7-U4g5gR6gkqpGIpzlBghoalJwyvL46to';
+  const SHEETS_BASE      = 'https://sheets.googleapis.com/v4/spreadsheets';
+
+  // ─────────────────────────────────────────────
+  // GOOGLE DRIVE PHOTO HELPER
+  // Accepts a full Drive share URL or a bare file ID
+  // Returns a direct-embed image URL
+  // ─────────────────────────────────────────────
+  function driveThumb(urlOrId, size = 400) {
+    if (!urlOrId) return null;
+    // Extract file ID from share URLs like /d/FILE_ID/ or id=FILE_ID
+    const m = urlOrId.match(/\/d\/([^/]+)/) || urlOrId.match(/id=([^&]+)/);
+    const id = m ? m[1] : urlOrId.trim();
+    return `https://drive.google.com/thumbnail?id=${id}&sz=w${size}`;
+  }
+
+  // ─────────────────────────────────────────────
+  // FETCH A SHEET TAB
+  // ─────────────────────────────────────────────
+  async function fetchSheet(tabName) {
+    const url = `${SHEETS_BASE}/${SHEET_ID}/values/${encodeURIComponent(tabName)}?key=${SHEETS_API_KEY}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Sheet fetch failed: ${res.status}`);
+    const data = await res.json();
+    const [headers, ...rows] = data.values || [];
+    return rows.map(row => Object.fromEntries(
+      headers.map((h, i) => [h.trim(), (row[i] || '').trim()])
+    ));
+  }
+
+  // ─────────────────────────────────────────────
+  // RENDER EIR MEMBERS
+  // Sheet columns: Name | Exit | Bio | Photo_URL | Active
+  // ─────────────────────────────────────────────
+  async function loadEIR() {
+    const grid  = document.getElementById('eirGrid');
+    const count = document.getElementById('eirCount');
+    try {
+      const rows = await fetchSheet('EIR');
+      const active = rows.filter(r => r.Active?.toLowerCase() !== 'false' && r.Active?.toLowerCase() !== 'no');
+      if (!active.length) { fallbackEIR(); return; }
+
+      grid.innerHTML = active.map(m => {
+        const photo = m.Photo_URL ? driveThumb(m.Photo_URL) : null;
+        const photoHTML = photo
+          ? `<div class="m-photo"><img src="${photo}" alt="${m.Name}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'m-avatar-placeholder\\'>${initials(m.Name)}</div>'" /></div>`
+          : `<div class="m-photo"><div class="m-avatar-placeholder">${initials(m.Name)}</div></div>`;
+        return `
+          <div class="mcard">
+            ${photoHTML}
+            <div class="m-body">
+              <div class="m-name">${m.Name}</div>
+              <span class="m-exit">${m.Exit}</span>
+              <p class="m-desc">${m.Bio}</p>
+            </div>
+          </div>`;
+      }).join('');
+
+      count.innerHTML = `Showing ${Math.min(active.length, 4)} of <strong>200+</strong> members in the EIR Club network.`;
+    } catch (e) {
+      console.warn('EIR sheet load failed, using fallback:', e);
+      fallbackEIR();
+    }
+  }
+
+  function initials(name) {
+    return (name || '').split(' ').map(w => w[0]).slice(0, 2).join('');
+  }
+
+  function fallbackEIR() {
+    const grid  = document.getElementById('eirGrid');
+    const count = document.getElementById('eirCount');
+    grid.innerHTML = `
+      <div class="mcard"><div class="m-photo"><img src="Fabian_Raso.jpeg" alt="Fabian Raso" /></div><div class="m-body"><div class="m-name">Fabian Raso</div><span class="m-exit">Hangry &rarr; Transact</span><p class="m-desc">Raised $1M seed. Scaled university pre-order platform. 8-figure acquisition.</p></div></div>
+      <div class="mcard"><div class="m-photo"><img src="Steve_Desjarlais.jpeg" alt="Steve Desjarlais" /></div><div class="m-body"><div class="m-name">Steve Desjarlais</div><span class="m-exit">Heyday &rarr; Hootsuite</span><p class="m-desc">Raised $2M seed. Scaled to 80 people. Acquired for $60M.</p></div></div>
+      <div class="mcard"><div class="m-photo"><img src="Hugo_Brizard.jpeg" alt="Hugo Brizard" /></div><div class="m-body"><div class="m-name">Hugo Brizard</div><span class="m-exit">K-Ops &rarr; Stack Construction</span><p class="m-desc">Raised $500K pre-seed. Built corporate-partnered product. 8-figure acquisition.</p></div></div>
+      <div class="mcard"><div class="m-photo"><img src="Sahil_Zaman.jpeg" alt="Sahil Zaman" /></div><div class="m-body"><div class="m-name">Sahil Zaman</div><span class="m-exit">ClosingFolders &rarr; iManage</span><p class="m-desc">Bootstrapped legal tech product. Sold to leading data room provider. 8-figure exit.</p></div></div>`;
+    count.innerHTML = `Showing 4 of <strong>200+</strong> members in the EIR Club network.`;
+  }
+
+  // ─────────────────────────────────────────────
+  // RENDER PORTFOLIO
+  // Sheet columns: Company_Name | Sector | Description | Logo_URL | Website_URL | Status | Active
+  // ─────────────────────────────────────────────
+  let portfolioData = [];
+
+  async function loadPortfolio() {
+    const grid = document.getElementById('portfolioGrid');
+    try {
+      const rows = await fetchSheet('Portfolio');
+      portfolioData = rows.filter(r => r.Active?.toLowerCase() !== 'false' && r.Active?.toLowerCase() !== 'no');
+      if (!portfolioData.length) { fallbackPortfolio(); return; }
+
+      grid.innerHTML = portfolioData.map((c, i) => {
+        const logo = c.Logo_URL ? driveThumb(c.Logo_URL, 300) : null;
+        const isInfra = !logo; // Show leaf icon if no logo
+
+        const logoHTML = logo
+          ? `<img src="${logo}" alt="${c.Company_Name}" style="width:80%;max-height:80px;object-fit:contain;margin-bottom:14px;" loading="lazy" />`
+          : `<div style="margin-bottom:14px;">${leafSVG()}</div>`;
+
+        return `
+          <div class="p-card-dyn" onclick="openPortfolioModal(${i})">
+            ${logoHTML}
+            <div class="stealth-sector">${c.Sector || ''}</div>
+            <div class="stealth-name" style="font-size:17px;margin-top:4px;">${c.Company_Name}</div>
+            <div class="stealth-badge" style="margin-top:10px;">
+              <span class="stealth-dot"></span>${c.Status || 'Active'}
+            </div>
+          </div>`;
+      }).join('');
+    } catch (e) {
+      console.warn('Portfolio sheet load failed, using fallback:', e);
+      fallbackPortfolio();
+    }
+  }
+
+  function leafSVG() {
+    return `<svg width="48" height="48" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M26 4C14 4 6 14 6 26C6 38 14 48 26 48C32 48 28 40 26 34C24 28 18 24 20 18C22 12 32 8 38 12C42 16 40 22 36 24C32 26 28 30 30 36C32 42 38 48 44 44C48 40 46 32 44 26C42 14 36 4 26 4Z" fill="#E05C3A" opacity="0.85"/></svg>`;
+  }
+
+  function fallbackPortfolio() {
+    portfolioData = [{
+      Company_Name: 'Self-Healing Asphalt',
+      Sector: 'Infrastructure',
+      Description: 'Extends pavement service life via bio-inspired repair mechanisms. Micro-capsule technology enables autonomous crack sealing, dramatically reducing maintenance costs and road closure frequency for municipalities and highway operators. Spun out of the University of Waterloo.',
+      Logo_URL: '',
+      Website_URL: '',
+      Status: 'In Stealth',
+      Active: 'true'
+    }];
+    const grid = document.getElementById('portfolioGrid');
+    grid.innerHTML = `
+      <div class="p-card-dyn" onclick="openPortfolioModal(0)">
+        ${leafSVG()}
+        <div class="stealth-sector" style="margin-top:14px;">Infrastructure</div>
+        <div class="stealth-name" style="font-size:17px;margin-top:4px;">Self-Healing Asphalt</div>
+        <div class="stealth-badge" style="margin-top:10px;"><span class="stealth-dot"></span>In Stealth</div>
+      </div>`;
+  }
+
+  // ─────────────────────────────────────────────
+  // PORTFOLIO MODAL
+  // ─────────────────────────────────────────────
+  function openPortfolioModal(index) {
+    const c = portfolioData[index];
+    if (!c) return;
+    document.getElementById('modalSector').textContent  = c.Sector || '';
+    document.getElementById('modalName').textContent    = c.Company_Name || '';
+    document.getElementById('modalStatus').textContent  = c.Status || 'Active';
+    document.getElementById('modalDesc').textContent    = c.Description || '';
+    const link = document.getElementById('modalLink');
+    if (c.Website_URL) {
+      link.href = c.Website_URL;
+      link.style.display = 'inline-flex';
+    } else {
+      link.style.display = 'none';
+    }
+    document.getElementById('portfolioModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePortfolioModal(e) {
+    if (e && e.target !== document.getElementById('portfolioModal') && !e.target.classList.contains('p-modal-close')) return;
+    document.getElementById('portfolioModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closePortfolioModal({ target: document.getElementById('portfolioModal') });
+  });
+
+  // ─────────────────────────────────────────────
+  // NAV + SMOOTH SCROLL
+  // ─────────────────────────────────────────────
   function toggleMobileMenu() {
     const drawer = document.getElementById('mobileDrawer');
     const btn = document.querySelector('.nav-mobile-btn');
@@ -1129,23 +1424,19 @@
     document.querySelector('.nav-mobile-btn').classList.remove('open');
   }
 
-  function doSubscribe() {
-    const el = document.getElementById('subEmail');
-    if (!el.value.trim() || !el.value.includes('@')) {
-      el.style.borderColor = '#E05C3A';
-      setTimeout(() => el.style.borderColor = '', 1600);
-      return;
-    }
-    document.querySelector('.sub-row').style.display = 'none';
-    document.querySelector('.sub-note').style.display = 'none';
-    document.getElementById('subOk').classList.add('show');
-  }
-
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const t = document.querySelector(a.getAttribute('href'));
       if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     });
+  });
+
+  // ─────────────────────────────────────────────
+  // INIT
+  // ─────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', () => {
+    loadEIR();
+    loadPortfolio();
   });
 </script>
 
